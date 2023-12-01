@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    p {
+        color: #555;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    a[href*='/deleteOK/'] {
+        background-color: #d9534f; /* Red color for delete button */
+    }
+
+    a[href*='/tickets'] {
+        background-color: #5bc0de; /* Blue color for cancel button */
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>ticket Delte Confirmation</title>
+</head>
+<body>
+    <h1>ticket Delete Confirmation</h1>
+    <p>Estas segur que vols borrar el usuari?</p>
+    <a th:href="@{'/deleteOK/' + ${ticket.id}}">Delete</a>
+    <a th:href="@{'/tickets'}">Cancel</a>
+</body>
+</html>

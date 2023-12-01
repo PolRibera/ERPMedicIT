@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensajes del Ticket</title>
+    <style>
+        /* Estilos para el chat */
+        #messages {
+            width: 400px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-y: scroll;
+            height: 300px; /* Altura fija para el chat, agrega un scroll si es necesario */
+        }
+
+        #messages ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #messages li {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        /* Estilos para el formulario de mensaje */
+        #mensaje-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #mensaje-form input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #mensaje-form button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #back-button {
+            /* Estilos para el botón de volver a la lista de tickets */
+            font-family: Arial, sans-serif;
+            display: block;
+            height: 35px;
+            width: 200px;
+            padding: 8px 15px;
+            background-color: #5bc0de;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+    </style>
+</head>
+<body>
+<h1>Ticket <span th:text="${ticket.id}"></span></h1>
+<div id="messages">
+    <ul>
+        <li th:each="message : ${messages}" th:text="${message.mensaje}"></li>
+    </ul>
+</div>
+
+<form id="mensaje-form" th:action="@{'/ticket/' + ${ticket.id}+'/messages'}" method="post">
+    <input type="text" name="mensaje" required>
+    <button type="submit">Enviar</button>
+</form>
+
+<!-- Botón para volver a la lista de tickets -->
+<a id="back-button" th:href="@{/tickets}">Tornar al llistat de tickets</a>
+</body>
+</html>

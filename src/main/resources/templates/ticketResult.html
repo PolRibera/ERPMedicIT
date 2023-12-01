@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    p {
+        color: #555;
+        margin: 10px 0;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+        background-color: #5bc0de;
+    }
+
+    a:hover {
+        background-color: #4cae4c;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>ticket</title>
+</head>
+<body>
+    <h1>ticket Information</h1>
+    <p>ID: <span th:text="${ticket.id}"></span></p>
+    <p>Nom: <span th:text="${ticket.nom}"></span></p>
+    <a th:href="@{'/tickets'}">Back to List</a>
+</body>
+</html>
+

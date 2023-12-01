@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú Principal</title>
+    <style>
+        /* Estilos para el header y la barra de navegación */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        /* Estilos para los botones de login y registro */
+        .right-buttons {
+            display: flex;
+        }
+
+        .right-buttons button {
+            margin-left: 10px;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Menú Principal</h1>
+    <div class="right-buttons">
+        <button>Login</button>
+        <button>Register</button>
+    </div>
+</header>
+<nav>
+    <ul>
+        <li><a th:href="@{/tickets}">Incidencias</a></li>
+        <li><a th:href="@{/mapa}">Mapa</a></li>
+        <li><a th:href="@{/dispositivos}">Dispositivos</a></li>
+        <li><a th:href="@{/usuarios}">Usuarios</a></li>
+    </ul>
+</nav>
+<!-- Agrega el resto de tu contenido -->
+</body>
+</html>
