@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Plano Pruebas</title>
+        <style>
+            /* Estilos para el header y la barra de navegación */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            nav li {
+                float: left;
+            }
+
+            nav li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            nav li a:hover {
+                background-color: #ddd;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+    <header>
+        <h1>Plano Pruebas</h1>
+        <nav>
+            <ul>
+                <!-- Modificación en el enlace del header -->
+                <li><a th:href="@{/inici}">Inici</a></li>
+            </ul>
+        </nav>
+    </header>
+    <svg width="600" height="400">
+    <!-- Habitación 1 -->
+    <a href="https://www.google.com" target="_blank">
+        <rect x="50" y="50" width="100" height="100" fill="blue" />
+        <text x="60" y="120" font-family="Arial" font-size="12" fill="white">Habitación 1</text>
+    </a>
+
+    <!-- Habitación 2 -->
+    <a href="https://www.twitter.com" target="_blank">
+        <rect x="200" y="50" width="100" height="150" fill="green" />
+        <text x="210" y="130" font-family="Arial" font-size="12" fill="white">Habitación 2</text>
+    </a>
+
+    <!-- Habitación 3 -->
+    <a href="https://www.example.com" target="_blank">
+        <rect x="350" y="50" width="100" height="100" fill="red" />
+        <text x="360" y="120" font-family="Arial" font-size="12" fill="white">Habitación 3</text>
+    </a>
+
+    <!-- Habitación 4 -->
+    <a href="https://www.example.com" target="_blank">
+        <rect x="50" y="200" width="150" height="100" fill="orange" />
+        <text x="60" y="270" font-family="Arial" font-size="12" fill="white">Habitación 4</text>
+    </a>
+
+    <!-- Habitación 5 -->
+    <a href="https://www.example.com" target="_blank">
+        <rect x="250" y="200" width="150" height="100" fill="purple" />
+        <text x="260" y="270" font-family="Arial" font-size="12" fill="white">Habitación 5</text>
+    </a>
+</svg>
+</body>
+</html>

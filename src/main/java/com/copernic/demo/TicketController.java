@@ -68,6 +68,22 @@ public class TicketController {
         return "Inici";
     }
 
+    @GetMapping("/login")
+    public String ShowLogin( ) {
+        return "Login";
+    }
+
+    @GetMapping("/register")
+    public String ShowRegister( ) {
+        return "Register";
+    }
+
+    @GetMapping("/mapa")
+    public String ShowMapa( ) {
+        return "Mapa";
+    }
+
+
     @GetMapping("/")
     public String ShowNoDirect( ) {
         return "redirect:/inici";

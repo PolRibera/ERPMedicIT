@@ -50,7 +50,7 @@
             display: flex;
         }
 
-        .right-buttons button {
+        .right-buttons a {
             margin-left: 10px;
             padding: 8px 15px;
             background-color: #4CAF50;
@@ -58,6 +58,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -65,8 +66,8 @@
 <header>
     <h1>Menú Principal</h1>
     <div class="right-buttons">
-        <button>Login</button>
-        <button>Register</button>
+        <a th:href="@{/login}" class="button">Login</a>
+        <a th:href="@{/register}" class="button">Register</a>
     </div>
 </header>
 <nav>
@@ -78,5 +79,6 @@
     </ul>
 </nav>
 <!-- Agrega el resto de tu contenido -->
+<h1 style="margin-left: 50px">Cooming Soon...</h1>
 </body>
 </html>
