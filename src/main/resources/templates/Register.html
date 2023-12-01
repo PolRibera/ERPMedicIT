@@ -87,6 +87,34 @@
             font-family: Inter, sans-serif;
             font-weight: 700;
         }
+        .cancel-button {
+            width: 130px;
+            height: 40px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 510px; /* Posiciona el botón debajo del botón de enviar */
+            background: #E57373; /* Color rojo para el botón cancelar */
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s; /* Transición para el color de fondo */
+            text-decoration: none;
+        }
+
+        .cancel-button:hover {
+            background-color: #EF9A9A; /* Color de fondo al pasar el mouse */
+        }
+
+        .cancel-text {
+            text-align: center;
+            line-height: 40px;
+            color: white; /* Color del texto */
+            font-size: 16px;
+            font-family: Inter, sans-serif;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -120,6 +148,10 @@
     <button type="submit" class="submit-button">
         <div class="submit-text">Enviar</div>
     </button>
+
+    <a th:href="@{/inici}" class="cancel-button">
+        <div class="cancel-text">Cancelar</div>
+    </a>
 </div>
 </body>
 </html>
