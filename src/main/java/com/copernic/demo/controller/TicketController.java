@@ -1,9 +1,16 @@
-package com.copernic.demo;
+package com.copernic.demo.controller;
 
+import com.copernic.demo.dao.RolDAO;
 import com.copernic.demo.domain.Mensaje;
+import com.copernic.demo.domain.Rol;
 import com.copernic.demo.domain.Ticket;
+import com.copernic.demo.domain.Usuari;
 import com.copernic.demo.services.TicketService;
+import com.copernic.demo.services.UsuariService;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +22,12 @@ public class TicketController {
 
     @Autowired
     private TicketService ticketService;
+
+    @Autowired
+    UsuariService usuariService;
+
+    @Autowired
+    RolDAO rolDAO;
 
 
     @GetMapping("/ticket")
@@ -64,19 +77,42 @@ public class TicketController {
         return "ticketMessages";
     }
     @GetMapping("/inici")
-    public String ShowDirect( ) {
-        return "Inici";
+    public String ShowDirectLogged(Model model ) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal == "anonymousUser") {
+            return "Inici";
+        } else {
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            model.addAttribute("username", username);
+            return "IniciLogged";
+        }
     }
 
     @GetMapping("/login")
     public String ShowLogin( ) {
-        return "Login";
+        return "login";
     }
 
     @GetMapping("/register")
-    public String ShowRegister( ) {
-        return "Register";
+    public String ShowRegister(Usuari usuari, Model model) {
+        List<Rol> rols = rolDAO.findAll();
+        model.addAttribute("rols", rols);
+        model.addAttribute("usuari", usuari);
+        return "register";
     }
+
+    @PostMapping("/register")
+    public String RegisterPost(Usuari usuari, Model model) {
+        model.addAttribute("usuari", usuari);
+        usuariService.saveUsuari(usuari);
+        return "redirect:/login";
+    }
+
 
     @GetMapping("/mapa")
     public String ShowMapa( ) {
@@ -99,6 +135,13 @@ public class TicketController {
 
         ticketService.saveMensaje(message);
         return "redirect:/ticket/"+id+"/messages";
+    }
+
+    @GetMapping("/users")
+    public String listUsers(Model model) {
+        List<Usuari> users = usuariService.getAllUsuaris();
+        model.addAttribute("users", users);
+        return "userList";
     }
 }
 

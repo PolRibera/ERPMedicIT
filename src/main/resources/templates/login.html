@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Inter, sans-serif; /* Apply font family to the entire body */
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .cancel-button {
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #E57373;
+            border-radius: 4px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .cancel-button:hover {
+            background-color: #EF9A9A;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form method="POST" th:action="@{/login}">
+        <label for="username">Usuari:</label>
+        <input type="text" name="username" id="username"/>
+
+        <label for="password">Contrasenya:</label>
+        <input type="password" name="password" id="password"/>
+
+        <input type="submit" value="Login"/>
+        <a th:href="@{/inici}" class="cancel-button">
+            Cancelar
+        </a>
+    </form>
+
+
+</div>
+</body>
+</html>

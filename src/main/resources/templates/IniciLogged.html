@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
@@ -30,6 +30,19 @@
 
         nav li {
             float: left;
+        }
+        header a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 5px;
+            background-color: #5bc0de;
+        }
+
+        header a:hover {
+            background-color: #4cae4c;
         }
 
         nav li a {
@@ -65,14 +78,20 @@
 <body>
 <header>
     <h1>Menú Principal</h1>
-    <div class="right-buttons">
-        <a th:href="@{/login}" class="button">Login</a>
-        <a th:href="@{/register}" class="button">Register</a>
+    <div class="username">
+        <p><span th:text="${username}"></span></p>
+        <a th:href="@{/logout}">Logout</a>
     </div>
 </header>
 <nav>
+    <ul>
+        <li><a th:href="@{/tickets}">Incidencias</a></li>
+        <li><a th:href="@{/mapa}">Mapa</a></li>
+        <li><a th:href="@{/dispositivos}">Dispositivos</a></li>
+        <li><a th:href="@{/users}">Usuarios</a></li>
+    </ul>
 </nav>
 <!-- Agrega el resto de tu contenido -->
-<h1 style="margin-left: 50px">Registrate o inicia Sesion!!!</h1>
+<h1 style="margin-left: 50px">Has iniciado sesion correctamente!</h1>
 </body>
 </html>
