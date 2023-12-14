@@ -7,7 +7,6 @@ import com.copernic.demo.domain.Ticket;
 import com.copernic.demo.domain.Usuari;
 import com.copernic.demo.services.TicketService;
 import com.copernic.demo.services.UsuariService;
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

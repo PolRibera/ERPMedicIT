@@ -1,6 +1,5 @@
 package com.copernic.demo.services;
 
-import com.copernic.demo.domain.Ticket;
 import com.copernic.demo.domain.Usuari;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

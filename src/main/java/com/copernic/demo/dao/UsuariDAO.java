@@ -1,6 +1,5 @@
 package com.copernic.demo.dao;
 
-import com.copernic.demo.domain.Ticket;
 import com.copernic.demo.domain.Usuari;
 import org.springframework.data.jpa.repository.JpaRepository;
 

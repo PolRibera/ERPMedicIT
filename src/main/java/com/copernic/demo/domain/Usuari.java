@@ -3,7 +3,6 @@ package com.copernic.demo.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.Data;
 
