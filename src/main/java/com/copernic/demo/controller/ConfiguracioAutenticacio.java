@@ -64,8 +64,10 @@ public class ConfiguracioAutenticacio {
                         //dels rols, normalment donen problemes, els Authority, no.
                         .requestMatchers("/Mapa/**", "/ticket/**", "/tickets")
                         .hasAnyAuthority("admin", "cliente", "tecnico")
-                        .requestMatchers("/users","/desbloqueja/**","/bloquejats")
-                        .hasAnyAuthority("admin")//URL iniciGossos on pot accedir el rol de veterinari o pacient
+                        .requestMatchers("/desbloqueja/**","/bloquejats")
+                        .hasAnyAuthority("admin")
+                        .requestMatchers("/users")
+                        .hasAnyAuthority("admin","tecnico")//URL iniciGossos on pot accedir el rol de veterinari o pacient
                         .anyRequest().authenticated() //Qualsevol altre sol.licitud que no coincideixi amb les regles anteriors cal autenticació
                 )
 
