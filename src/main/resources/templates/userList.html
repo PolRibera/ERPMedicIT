@@ -124,6 +124,8 @@
     <td th:text="${user.username}"></td>
     <td th:text="${user.rol.getNom()}"></td>
     <td>
+      <a th:href="@{'/updateuser/'+${user.username}}">Update</a>
+      <a th:href="@{'/deleteuser/'+${user.username}}">Delete</a>
       <!-- Botón para ir a la página de mensajes -->
     </td>
   </tr>

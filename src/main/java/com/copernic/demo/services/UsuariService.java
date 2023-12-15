@@ -11,9 +11,16 @@ public interface UsuariService extends UserDetailsService{
 
         public UserDetails loadUserByUsername(String username);
 
+        void desbloquejarUsuari(String username, Usuari user);
+
+        void deleteUsuari(String username);
+
         List<Usuari> getAllUsuaris();
 
         Usuari saveUsuari(Usuari user);
 
-        void deleteUsuer(String username);
+        Usuari getUsuariByUsername(String username);
+
+        List<Usuari> getBlockedUsers();
+
 }

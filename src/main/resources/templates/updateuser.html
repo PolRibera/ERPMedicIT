@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRARSE</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            width: 400px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-container input[type="text"], .login-container input[type="password"] {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            font-weight: 300;
+            color: black;
+        }
+
+        .login-container select {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            font-weight: 300;
+            color: black;
+        }
+
+        .login-container input[type="submit"] {
+            width: 100%;
+            height: 40px;
+            margin-top: 10px;
+            background-color: #3F51B5;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background-color: #3949AB;
+        }
+
+        .cancel-button {
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #E57373;
+            border-radius: 4px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .cancel-button:hover {
+            background-color: #EF9A9A;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <form method="POST" th:action="@{/update}">
+        <label for="username">Username:</label>
+        <input type="text" id="username" th:field="*{username}" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" required>
+        <br>
+        <!-- Lista desplegable para seleccionar el rol -->
+        <label for="rol">Seleccionar Rol:</label>
+        <select id="rol" name="rol">
+            <option th:each="rol : ${rols}" th:value="${rol.idRol}" th:text="${rol.nom}"></option>
+        </select>
+        <br>
+        <input type="submit" value="Update"/>
+    </form>
+
+    <a th:href="@{/inici}" class="cancel-button">
+        <div class="cancel-text">Cancelar</div>
+    </a>
+</div>
+</body>
+</html>

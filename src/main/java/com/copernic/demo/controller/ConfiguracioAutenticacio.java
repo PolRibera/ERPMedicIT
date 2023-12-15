@@ -1,5 +1,7 @@
 package com.copernic.demo.controller;
 
+import com.copernic.demo.services.AuthFailureHandler;
+import com.copernic.demo.services.AuthSuccessHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -60,14 +64,17 @@ public class ConfiguracioAutenticacio {
                         //dels rols, normalment donen problemes, els Authority, no.
                         .requestMatchers("/Mapa/**", "/ticket/**", "/tickets")
                         .hasAnyAuthority("admin", "cliente", "tecnico")
-                        .requestMatchers("/users")
+                        .requestMatchers("/users","/desbloqueja/**","/bloquejats")
                         .hasAnyAuthority("admin")//URL iniciGossos on pot accedir el rol de veterinari o pacient
                         .anyRequest().authenticated() //Qualsevol altre sol.licitud que no coincideixi amb les regles anteriors cal autenticació
                 )
 
                 .formLogin((form) -> form //Objecte que representa el formulari de login personalitzat que utilitzarem
-                        .loginPage("/login")  //Pàgina on es troba el formulari per fer login personalitzat
-                        .permitAll() //Permet acceddir a tothom
+                        .loginPage("/login")
+                                .failureHandler(authenticationFailureHandler())
+                                .successHandler(authenticationSuccessHandler())
+//Pàgina on es troba el formulari per fer login personalitzat
+                        .permitAll()
                 )
                 .logout(
                         logout -> logout
@@ -80,5 +87,15 @@ public class ConfiguracioAutenticacio {
                 .build();
 
     }
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler(){
+        return new AuthFailureHandler();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new AuthSuccessHandler();
+    }
+
 
 }

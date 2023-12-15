@@ -109,8 +109,9 @@ public class TicketController {
     @PostMapping("/register")
     public String RegisterPost(Usuari usuari, Model model) {
         model.addAttribute("usuari", usuari);
-        usuariService.saveUsuari(usuari);
-        return "redirect:/login";
+            usuariService.saveUsuari(usuari);
+            return "redirect:/login";
+
     }
 
 
@@ -137,13 +138,16 @@ public class TicketController {
         return "redirect:/ticket/"+id+"/messages";
     }
 
-    @GetMapping("/users")
-    public String listUsers(Model model) {
-        List<Usuari> users = usuariService.getAllUsuaris();
-        model.addAttribute("users", users);
-        return "userList";
+    @GetMapping("/desp")
+    public String mostrarPagina(@RequestParam("area") String area, Model model) {
+        // Puedes hacer algo con el parámetro "area" si es necesario
+        model.addAttribute("area", area);
+        return "desp";
     }
 }
+
+
+
 
 
 
