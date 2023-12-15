@@ -38,9 +38,9 @@
     <title>ticket Delte Confirmation</title>
 </head>
 <body>
-    <h1>ticket Delete Confirmation</h1>
-    <p>Estas segur que vols borrar el ticket?</p>
-    <a th:href="@{'/deleteOK/' + ${ticket.id}}">Delete</a>
-    <a th:href="@{'/tickets'}">Cancel</a>
+    <h1>User Delete Confirmation</h1>
+    <p>Estas segur que vols borrar el usuari?</p>
+    <a th:href="@{'/deleteuserOK/' + ${usuari.username}}">Delete</a>
+    <a th:href="@{'/users'}">Cancel</a>
 </body>
 </html>
