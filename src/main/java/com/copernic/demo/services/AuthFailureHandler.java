@@ -43,12 +43,12 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler  {
                 exception = new LockedException("La seva contrasenya es incorrecta, pero com al ser admin no perd intents, aixi que no es bloqueja");
             } else {
                 if (user.getIntents() > 0) {
+                    exception = new LockedException("La seva contrasenya es incorrecta, ha perdut un intent et queden: " + user.getIntents());
                     int intents = user.getIntents() - 1;
                     user.setIntents(intents);
                     userDao.save(user);
-                    exception = new LockedException("La seva contrasenya es incorrecta, ha perdut un intent et queden: " + user.getIntents());
                 }
-                else if(user.getIntents()== 0){
+                else if(user.getIntents() == 0){
                     exception = new LockedException("El seu usuari s'ha quedat sin intents y esta bloquejat, contacti amb un administrador per desbloquejar-lo");
                 }
             }

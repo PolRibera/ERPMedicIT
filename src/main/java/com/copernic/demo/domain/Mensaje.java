@@ -17,6 +17,11 @@ public class Mensaje {
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
+
+    @ManyToOne
+    @JoinColumn(name = "username_id")
+    private Usuari usuari;
+
     // Getter and Setter for 'mensaje' field
 
     public void setTicket(Ticket ticket) {

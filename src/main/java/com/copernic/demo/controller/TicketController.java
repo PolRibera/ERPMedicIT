@@ -108,8 +108,9 @@ public class TicketController {
     @PostMapping("/register")
     public String RegisterPost(Usuari usuari, Model model) {
         model.addAttribute("usuari", usuari);
-            usuariService.saveUsuari(usuari);
-            return "redirect:/login";
+        usuari.setIntents(3);
+        usuariService.saveUsuari(usuari);
+        return "redirect:/login";
 
     }
 
@@ -126,12 +127,21 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/{id}/messages")
-    public String addMessageToTicket(@PathVariable Long id, @RequestParam String mensaje) {
+    public String addMessageToTicket(@PathVariable Long id, @RequestParam String mensaje, @RequestParam String username, Model model) {
         Ticket ticket = ticketService.getTicketById(id);
-
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usuariname = "";
+        if (principal instanceof UserDetails) {
+                usuariname = ((UserDetails) principal).getUsername();
+        } else {
+                usuariname = principal.toString();
+        }
+        model.addAttribute("username", usuariname);
         Mensaje message = new Mensaje();
         message.setMensaje(mensaje);
-        message.setTicket(ticket); // Asignar el ticket al mensaje
+        message.setTicket(ticket);
+        Usuari usuari = usuariService.getUsuariByUsername(usuariname);
+        message.setUsuari(usuari);// Asignar el ticket al mensaje
 
         ticketService.saveMensaje(message);
         return "redirect:/ticket/"+id+"/messages";
