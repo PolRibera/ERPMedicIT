@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -37,6 +40,8 @@ public class TicketController {
 
     @PostMapping("/ticket")
     public String sumbitForm(Ticket ticket, Model model) {
+        ticket.setFecha(LocalDateTime.now());
+        ticket.setUsuari(usuariService.getUsuariByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         ticketService.saveTicket(ticket);
         model.addAttribute("ticket", ticket);
         return "ticketResult";
@@ -127,7 +132,7 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/{id}/messages")
-    public String addMessageToTicket(@PathVariable Long id, @RequestParam String mensaje, @RequestParam String username, Model model) {
+    public String addMessageToTicket(@PathVariable Long id, @RequestParam String mensaje, @RequestParam String username, Model model, @RequestParam String tipo) {
         Ticket ticket = ticketService.getTicketById(id);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String usuariname = "";
@@ -139,7 +144,10 @@ public class TicketController {
         model.addAttribute("username", usuariname);
         Mensaje message = new Mensaje();
         message.setMensaje(mensaje);
+        LocalDateTime now = LocalDateTime.now();
+        message.setFecha(now);
         message.setTicket(ticket);
+        message.setTipo(tipo);
         Usuari usuari = usuariService.getUsuariByUsername(usuariname);
         message.setUsuari(usuari);// Asignar el ticket al mensaje
 

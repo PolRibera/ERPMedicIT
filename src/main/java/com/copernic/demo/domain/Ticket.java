@@ -5,6 +5,7 @@ package com.copernic.demo.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,11 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+    private LocalDateTime fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Usuari usuari;
 
     @OneToMany(mappedBy = "ticket")
     private List<Mensaje> mensajes;

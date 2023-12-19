@@ -3,6 +3,9 @@ package com.copernic.demo.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "mensaje")
 @Data
@@ -12,6 +15,8 @@ public class Mensaje {
     private Long id;
 
     private String mensaje;
+    private LocalDateTime fecha;
+    private String tipo;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
@@ -22,9 +27,8 @@ public class Mensaje {
     @JoinColumn(name = "username_id")
     private Usuari usuari;
 
+
+
     // Getter and Setter for 'mensaje' field
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
 }

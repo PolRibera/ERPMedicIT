@@ -30,7 +30,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         Usuari user = userDao.findByUsername(username);
 
 
-        if(user.getIntents()>0){
+        if( user.getIntents()<3){
             log.info("S'han restablert els intents per accedir correctament");
             user.setIntents(3);
             userDao.save(user);
