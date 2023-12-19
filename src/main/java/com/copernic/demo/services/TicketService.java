@@ -19,7 +19,6 @@ public interface TicketService {
     Ticket saveTicket(Ticket ticket);
     List<Ticket> getAllTickets();
 
-
     Ticket getTicketById(Long id);
 
     void deleteTicket(Long id);
