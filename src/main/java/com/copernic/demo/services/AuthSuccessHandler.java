@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Ruben
+ * @author PolRib pero basado en el del ruben xd
  */
 @Component
 @Slf4j
