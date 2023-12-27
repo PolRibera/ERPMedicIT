@@ -1,7 +1,9 @@
 package com.copernic.demo.services;
 
+import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.MensajeDAO;
 import com.copernic.demo.dao.TicketDAO;
+import com.copernic.demo.domain.Consulta;
 import com.copernic.demo.domain.Mensaje;
 import com.copernic.demo.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private MensajeDAO mensajeDAO;
+
+    @Autowired
+    private ConsultaDAO consultaDAO;
 
     @Override
     public Ticket saveTicket(Ticket ticket) {
@@ -57,6 +62,19 @@ public class TicketServiceImpl implements TicketService {
     @Transactional(readOnly = true)
     public List<Mensaje> getMessages(Long ticketId) {
         return mensajeDAO.findByTicket_Id(ticketId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Consulta> getConsultesIncidencies() {
+        List<Consulta> allconsultes = consultaDAO.findAll();
+        List<Consulta> consultesIncidencies = null;
+        for (Consulta consulta : allconsultes) {
+            if (consulta.getTickets()>0) {
+                consultesIncidencies.add(consulta);
+            }
+        }
+        return consultesIncidencies;
     }
 
 

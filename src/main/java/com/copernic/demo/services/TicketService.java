@@ -4,6 +4,7 @@
  */
 
 package com.copernic.demo.services;
+import com.copernic.demo.domain.Consulta;
 import com.copernic.demo.domain.Ticket;
 import com.copernic.demo.domain.Mensaje;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,6 @@ public interface TicketService {
     void deleteTicket(Long id);
     Mensaje saveMensaje(Mensaje mensaje);
     List<Mensaje> getMessages(Long ticketId);
+
+    List<Consulta> getConsultesIncidencies();
 }

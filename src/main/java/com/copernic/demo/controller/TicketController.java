@@ -131,7 +131,9 @@ public class TicketController {
 
 
     @GetMapping("/mapa")
-    public String ShowMapa() {
+    public String ShowMapa(Model model) {
+        List<Consulta> consultesIncidencies = ticketService.getConsultesIncidencies();
+        model.addAttribute("consultesIncidencies", consultesIncidencies);
         return "Mapa";
     }
 

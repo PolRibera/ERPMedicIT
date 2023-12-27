@@ -59,22 +59,6 @@
             max-width: 100%;
             max-height: 100%;
         }
-
-        .image {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        .map-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
         .register-button {
             position: absolute;
             top: 10px;
@@ -95,18 +79,19 @@
 
         area:hover {
             opacity: 0.5;
+            color: #333;
         }
+
 
         .area-overlay {
             position: absolute;
-            background-color: transparent;
-            /* additional styles for positioning and appearance */
-        }
-
-        .red-overlay {
-            background-color: rgba(255, 0, 0, 0.5); /* Red color with some opacity */
+            background-color: rgba(255, 0, 0,0.5);
+            pointer-events: none;/* Red color with opacity */
+            /* You'll set the size and position using JavaScript */
         }
     </style>
+
+
 </head>
 <body>
 <header>
@@ -119,59 +104,59 @@
     </nav>
 </header>
 
-
 <div class="content">
 
     <div class="image-container">
 
         <img src="https://www.edrawsoft.com/template/hospital-floor-plan.png" alt="" usemap="#map1702657057842"
-             width="150%">
+             width="150%" id="mapImage">
+
 
         <map id="map1702657057842" name="map1702657057842">
-            <area th:classappend="${consulta.getTicketNum() >= 1} ? 'red-overlay'" shape="rect" coords="19.5,67.5,88.5,115.5" title="" alt="" th:href="@{/consulta/1}"
-                  target="_self" >
+            <area shape="rect" coords="19.5,67.5,88.5,115.5" title="" alt="" th:href="@{/consulta/1}"
+                  target="_self">
             <area shape="rect" coords="19.5,115.5,90,169.5" title="" alt="" th:href="@{/consulta/2}"
                   target="_self">
-            <area shape="rect" coords="22.5,171,90,213" title="" alt="" href="/desp?area=Consulta3" target="_self">
-            <area shape="rect" coords="19.5,250.5,90,289.5" title="" alt="" href="/desp?area=Consulta9"
+            <area shape="rect" coords="22.5,171,90,213" title="" alt="" th:href="@{/consulta/3}"
+                target="_self">
+            <area shape="rect" coords="19.5,250.5,90,289.5" title="" alt="" th:href="@{/consulta/9}"
                   target="_self">
-            <area shape="rect" coords="21,289.5,90,327" title="" alt="" href="/desp?area=Consulta10" target="_self">
-            <area shape="rect" coords="22.5,324,87,361.5" title="" alt="" href="/desp?area=Consulta11"
+            <area shape="rect" coords="21,289.5,90,327" title="" alt="" th:href="@{/consulta/10}"  target="_self">
+            <area shape="rect" coords="22.5,324,87,361.5" title="" alt="" th:href="@{/consulta/11}"
                   target="_self">
-            <area shape="rect" coords="129,271.5,202.5,319.5" title="" alt="" href="/desp?area=Consulta8"
+            <area shape="rect" coords="129,271.5,202.5,319.5" title="" alt="" th:href="@{/consulta/8}"
                   target="_self">
-            <area shape="rect" coords="130.5,219,202.5,267" title="" alt="" href="/desp?area=Consulta7"
+            <area shape="rect" coords="130.5,219,202.5,267" title="" alt="" th:href="@{/consulta/7}"
                   target="_self">
-            <area shape="rect" coords="130.5,166.5,202.5,205.5" title="" alt="" href="/desp?area=Consulta6"
+            <area shape="rect" coords="130.5,166.5,202.5,205.5" title="" alt="" th:href="@{/consulta/6}"
                   target="_self">
-            <area shape="rect" coords="133.5,121.5,202.5,163.5" title="" alt="" href="/desp?area=Consulta5"
+            <area shape="rect" coords="133.5,121.5,202.5,163.5" title="" alt="" th:href="@{/consulta/5}"
                   target="_self">
-            <area shape="rect" coords="132,64.5,198,111" title="" alt="" href="/desp?area=Consulta4" target="_self">
-            <area shape="rect" coords="690,97.5,744,142.5" title="" alt="" href="/desp?area=Consulta12"
+            <area shape="rect" coords="132,64.5,198,111" title="" alt="" th:href="@{/consulta/4}" target="_self">
+            <area shape="rect" coords="690,97.5,744,142.5" title="" alt="" th:href="@{/consulta/12}"
                   target="_self">
-            <area shape="rect" coords="787.5,139.5,862.5,189" title="" alt="" href="/desp?area=Consulta13"
+            <area shape="rect" coords="787.5,139.5,862.5,189" title="" alt="" th:href="@{/consulta/13}"
                   target="_self">
-            <area shape="rect" coords="684,148.5,742.5,202.5" title="" alt="" href="/desp?area=Consulta14"
+            <area shape="rect" coords="684,148.5,742.5,202.5" title="" alt="" th:href="@{/consulta/14}"
                   target="_self">
-            <area shape="rect" coords="682.5,205.5,742.5,270" title="" alt="" href="/desp?area=Consulta16"
+            <area shape="rect" coords="682.5,205.5,742.5,270" title="" alt="" th:href="@{/consulta/16}"
                   target="_self">
-            <area shape="rect" coords="787.5,193.5,862.5,243" title="" alt="" href="/desp?area=Consulta15"
+            <area shape="rect" coords="787.5,193.5,862.5,243" title="" alt="" th:href="@{/consulta/15}"
                   target="_self">
-            <area shape="rect" coords="786,244.5,865.5,297" title="" alt="" href="/desp?area=Consulta17"
+            <area shape="rect" coords="786,244.5,865.5,297" title="" alt="" th:href="@{/consulta/17}"
                   target="_self">
-            <area shape="rect" coords="787.5,297,868.5,348" title="" alt="" href="/desp?area=Consulta19"
+            <area shape="rect" coords="787.5,297,868.5,348" title="" alt="" th:href="@{/consulta/19}"
                   target="_self">
-            <area shape="rect" coords="787.5,351,870,402" title="" alt="" href="/desp?area=Consulta21"
+            <area shape="rect" coords="787.5,351,870,402" title="" alt="" th:href="@{/consulta/21}"
                   target="_self">
-            <area shape="rect" coords="787.5,403.5,866.5,459" title="" alt="" href="/desp?area=Consulta22"
+            <area shape="rect" coords="787.5,403.5,866.5,459" title="" alt="" th:href="@{/consulta/22}"
                   target="_self">
             <area shape="rect" coords="788.5,459,843,540" title="" alt="" href="/desp?area=Oficina" target="_self">
             <area shape="rect" coords="684,453,717,486" title="" alt="" href="/desp?area=Registro" target="_self">
             <area shape="rect" coords="682.5,495,720,540" title="" alt="" href="/desp?area=Informacion"
                   target="_self">
-            <area shape="rect" coords="684,318,735,441" title="" alt="" href="/mapa?area=Consulta20" target="_self">
-            <area shape="rect" coords="688.5,264,732,396" title="" alt="" href="/mapa?area=Consulta18"
-                  target="_self">
+            <area shape="rect" coords="684,318,735,441" title="" alt="" th:href="@{/consulta/20}" target="_self">
+            <area shape="rect" coords="688.5,264,732,396" title="" alt="" th:href="@{/consulta/18}" target="_self">
             <area shape="rect" coords="240,375,274.5,412.5" title="" alt="" href="/desp?area=Box1" target="_self">
             <area shape="rect" coords="282,375,316.5,412.5" title="" alt="" href="/desp?area=Box2" target="_self">
             <area shape="rect" coords="327,373.5,366,412.5" title="" alt="" href="/desp?area=Box3" target="_self">
@@ -194,14 +179,32 @@
                   target="_self">
             <area shape="rect" coords="324,286.5,366,327" title="" alt="" href="/desp?area=Despacho2"
                   target="_self">
-        </map>
-
-        <!-- Overlay para estilos y posicionamiento -->
-        <div class="map-overlay"></div>
+        </map><!-- Overlay para estilos y posicionamiento -->
     </div>
 
     <!-- Botón "Registrar Dispositivo" -->
     <button class="register-button">Registrar Dispositivo</button>
 </div>
+<script>
+    function positionOverlay(areaElement, overlayElement) {
+        const coords = areaElement.coords.split(',').map(num => parseInt(num, 10));
+        if (coords.length === 4) { // Rectangular area
+            // Assuming coords are in pixels
+            overlayElement.style.left = `${coords[0]}px`;
+            overlayElement.style.top = `${coords[1]}px`;
+            overlayElement.style.width = `${coords[2] - coords[0]}px`;
+            overlayElement.style.height = `${coords[3] - coords[1]}px`;
+        }
+        // Add cases for other shapes (circle, poly) if needed
+    }
+
+    // Adjusting this for all areas
+    document.querySelectorAll('area').forEach((area, index) => {
+        const overlay = document.createElement('div');
+        overlay.className = 'area-overlay';
+        document.querySelector('.image-container').appendChild(overlay);
+        positionOverlay(area, overlay);
+    });
+</script>
 </body>
 </html>
