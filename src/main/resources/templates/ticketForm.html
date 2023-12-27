@@ -72,6 +72,9 @@
         <input th:type="hidden" th:field="*{id}"/>
         <label for="nom">Decripció del ticket:</label>
         <input type="text" id="nom" th:field="*{nom}" required>
+        <select id="consulta_id" th:field="*{consulta}" name="consulta_id">
+            <option th:each="consulta : ${consultes}" th:value="${consulta.getIdconsulta()}" th:text="${consulta.getNom()}"></option>
+        </select>
         <br>
 
         <button type="submit">Genera!</button>

@@ -1,10 +1,8 @@
 package com.copernic.demo.controller;
 
+import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.RolDAO;
-import com.copernic.demo.domain.Mensaje;
-import com.copernic.demo.domain.Rol;
-import com.copernic.demo.domain.Ticket;
-import com.copernic.demo.domain.Usuari;
+import com.copernic.demo.domain.*;
 import com.copernic.demo.services.TicketService;
 import com.copernic.demo.services.UsuariService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -31,10 +27,15 @@ public class TicketController {
     @Autowired
     RolDAO rolDAO;
 
+    @Autowired
+    ConsultaDAO ConsultaDAO;
+
 
     @GetMapping("/ticket")
     public String mostrarFormulario(Ticket ticket, Model model) {
         model.addAttribute("ticket", ticket);
+        List<Consulta> consultes = ConsultaDAO.findAll();
+        model.addAttribute("consultes", consultes);
         return "ticketForm";
     }
 
@@ -58,6 +59,13 @@ public class TicketController {
         ticket = ticketService.getTicketById(ticket.getId());
         model.addAttribute("ticket", ticket);
         return "ticketForm";
+    }
+
+    @GetMapping("/consulta/{id}")
+    public String consultesView(@PathVariable Long id,Model model) {
+        Consulta consulta = ConsultaDAO.findById(id).orElse(null);
+        model.addAttribute("consulta", consulta);
+        return "consultaView";
     }
 
     @GetMapping("/delete/{id}")
@@ -93,6 +101,8 @@ public class TicketController {
                 username = principal.toString();
             }
             model.addAttribute("username", username);
+            Rol rol = rolDAO.findByNom(usuariService.getUsuariByUsername(username).getRol().getNom());
+            model.addAttribute("Rol",rol);
             return "IniciLogged";
         }
     }
@@ -121,7 +131,7 @@ public class TicketController {
 
 
     @GetMapping("/mapa")
-    public String ShowMapa( ) {
+    public String ShowMapa() {
         return "Mapa";
     }
 
@@ -159,7 +169,7 @@ public class TicketController {
     public String mostrarPagina(@RequestParam("area") String area, Model model) {
         // Puedes hacer algo con el parámetro "area" si es necesario
         model.addAttribute("area", area);
-        return "desp";
+        return "consultaView";
     }
 }
 

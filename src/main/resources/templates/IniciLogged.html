@@ -88,8 +88,8 @@
         <li><a th:href="@{/tickets}">Incidencias</a></li>
         <li><a th:href="@{/mapa}">Mapa</a></li>
         <li><a th:href="@{/dispositivos}">Dispositivos</a></li>
-        <li><a th:href="@{/users}">Usuarios</a></li>
-        <li><a th:href="@{/bloquejats}">Usuarios Bloqueados</a></li>
+        <li><a th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/users}">Usuarios</a></li>
+        <li><a th:if="${Rol.getNom().equals('admin')}" th:href="@{/bloquejats}">Usuarios Bloqueados</a></li>
     </ul>
 </nav>
 <!-- Agrega el resto de tu contenido -->

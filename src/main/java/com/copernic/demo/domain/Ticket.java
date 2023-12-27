@@ -22,6 +22,10 @@ public class Ticket {
     @JoinColumn(name = "author_id")
     private Usuari usuari;
 
+    @ManyToOne
+    @JoinColumn(name = "consulta_id")
+    private Consulta consulta;
+
     @OneToMany(mappedBy = "ticket")
     private List<Mensaje> mensajes;
 

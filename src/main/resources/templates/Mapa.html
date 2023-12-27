@@ -96,6 +96,16 @@
         area:hover {
             opacity: 0.5;
         }
+
+        .area-overlay {
+            position: absolute;
+            background-color: transparent;
+            /* additional styles for positioning and appearance */
+        }
+
+        .red-overlay {
+            background-color: rgba(255, 0, 0, 0.5); /* Red color with some opacity */
+        }
     </style>
 </head>
 <body>
@@ -118,9 +128,9 @@
              width="150%">
 
         <map id="map1702657057842" name="map1702657057842">
-            <area shape="rect" coords="19.5,67.5,88.5,115.5" title="" alt="" href="/desp?area=Consulta2"
-                  target="_self">
-            <area shape="rect" coords="19.5,115.5,90,169.5" title="" alt="" href="/desp?area=Consulta2"
+            <area th:classappend="${consulta.getTicketNum() >= 1} ? 'red-overlay'" shape="rect" coords="19.5,67.5,88.5,115.5" title="" alt="" th:href="@{/consulta/1}"
+                  target="_self" >
+            <area shape="rect" coords="19.5,115.5,90,169.5" title="" alt="" th:href="@{/consulta/2}"
                   target="_self">
             <area shape="rect" coords="22.5,171,90,213" title="" alt="" href="/desp?area=Consulta3" target="_self">
             <area shape="rect" coords="19.5,250.5,90,289.5" title="" alt="" href="/desp?area=Consulta9"
