@@ -64,7 +64,9 @@ public class TicketController {
     @GetMapping("/consulta/{id}")
     public String consultesView(@PathVariable Long id,Model model) {
         Consulta consulta = ConsultaDAO.findById(id).orElse(null);
+        List<Ticket> tickets = ticketService.getTicketsByConsulta(id);
         model.addAttribute("consulta", consulta);
+        model.addAttribute("tickets", tickets);
         return "consultaView";
     }
 
@@ -133,7 +135,11 @@ public class TicketController {
     @GetMapping("/mapa")
     public String ShowMapa(Model model) {
         List<Consulta> consultesIncidencies = ticketService.getConsultesIncidencies();
-        model.addAttribute("consultesIncidencies", consultesIncidencies);
+        List<Integer> consultesIncidenciesId = new ArrayList<>(); // Inicializa la lista
+        for (Consulta consulta : consultesIncidencies) {
+            consultesIncidenciesId.add(Math.toIntExact(consulta.getIdconsulta()));
+        }
+        model.addAttribute("consultesIncidencies", consultesIncidenciesId);
         return "Mapa";
     }
 
@@ -167,12 +173,6 @@ public class TicketController {
         return "redirect:/ticket/"+id+"/messages";
     }
 
-    @GetMapping("/desp")
-    public String mostrarPagina(@RequestParam("area") String area, Model model) {
-        // Puedes hacer algo con el parámetro "area" si es necesario
-        model.addAttribute("area", area);
-        return "consultaView";
-    }
 }
 
 

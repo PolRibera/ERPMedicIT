@@ -28,4 +28,6 @@ public interface TicketService {
     List<Mensaje> getMessages(Long ticketId);
 
     List<Consulta> getConsultesIncidencies();
+
+    List<Ticket> getTicketsByConsulta(Long id);
 }

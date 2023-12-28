@@ -67,14 +67,14 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Transactional(readOnly = true)
     public List<Consulta> getConsultesIncidencies() {
-        List<Consulta> allconsultes = consultaDAO.findAll();
-        List<Consulta> consultesIncidencies = null;
-        for (Consulta consulta : allconsultes) {
-            if (consulta.getTickets()>0) {
-                consultesIncidencies.add(consulta);
-            }
-        }
-        return consultesIncidencies;
+        return consultaDAO.findConsultesWithIncidencies();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getTicketsByConsulta(Long idconsulta) {
+        Consulta c = consultaDAO.getReferenceById(idconsulta);
+        return ticketDAO.findByConsulta(c);
     }
 
 

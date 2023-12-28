@@ -100,7 +100,16 @@
     </nav>
     <div class="content">
         <h1>Página del despacho</h1>
-        <p>Esta es la página para el área: <span th:text="${consulta.getNom()}">Área predeterminada</span></p>
+        <p>Esta es la página para el área: <span th:text="${consulta.getNom()}"></span></p>
+        <a th:href="@{'/ticket' }">Generar un Ticket</a>
+        <div th:each="ticket:${tickets}">
+            <p>Id: <span th:text="${ticket.id}"></span></p>
+            <p>Nombre: <span th:text="${ticket.nom}"></span></p>
+            <p>Autor: <span th:text="${ticket.usuari.username}"></span></p>
+            <p>Fecha: <span th:text="${ticket.fecha}"></span></p>
+            <a th:href="@{'/ticket/'+${ticket.id}+'/messages'}">Ir al ticket</a>
+        </div>
+
     </div>
 </body>
 
