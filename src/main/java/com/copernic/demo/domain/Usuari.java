@@ -34,9 +34,10 @@ public class Usuari implements Serializable {
     @JoinColumn(name = "rol_id") // Nombre de la columna que almacena la ID del rol
     private Rol rol;
 
-    public String getRolName() {
-        return (this.rol).getNom();
-    }
+    @Column(name = "intents")
+    private int intents;
+
+
 
     // Campo para almacenar la ID del rol
 

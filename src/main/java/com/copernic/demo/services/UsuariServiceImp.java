@@ -74,7 +74,34 @@ public class UsuariServiceImp implements UsuariService, UserDetailsService {
     }
 
     @Override
-    public void deleteUsuer(String username) {
+    public Usuari getUsuariByUsername(String username) {
+        Usuari usuari = usuariDAO.findByUsername(username);
+        return usuari;
+    }
+
+    @Override
+    public List<Usuari> getBlockedUsers() {
+        List<Usuari> usuaris = usuariDAO.findAll();
+        List<Usuari> usuarisBloquejats = new ArrayList<>();
+        for (Usuari usuari : usuaris) {
+            if (usuari.getIntents() <= 0) {
+                usuarisBloquejats.add(usuari);
+            }
+        }
+
+        return usuarisBloquejats;
+    }
+
+    @Override
+    public void desbloquejarUsuari(String username, Usuari user) {
+        Usuari usuari = usuariDAO.findByUsername(username);
+        usuari.setIntents(3);
+        usuariDAO.save(usuari);
+    }
+
+
+    @Override
+    public void deleteUsuari(String username) {
         Usuari usuari = usuariDAO.findByUsername(username);
         if (usuari != null) {
             usuariDAO.delete(usuari);
