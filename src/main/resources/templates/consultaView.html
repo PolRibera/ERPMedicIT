@@ -101,7 +101,7 @@
     <div class="content">
         <h1>Página del despacho</h1>
         <p>Esta es la página para el área: <span th:text="${consulta.getNom()}"></span></p>
-        <a th:href="@{/ticket?consulta=${} }">Generar un Ticket</a>
+        <a th:href="@{/ticket?consulta=${consulta.idconsulta} }">Generar un Ticket</a>
         <div th:each="ticket:${tickets}">
             <p>Id: <span th:text="${ticket.id}"></span></p>
             <p>Nombre: <span th:text="${ticket.nom}"></span></p>
