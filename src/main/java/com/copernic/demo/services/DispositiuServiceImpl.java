@@ -10,6 +10,7 @@ import com.copernic.demo.dao.DispositiuDAO;
 import com.copernic.demo.domain.Dispositiu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +27,9 @@ public class DispositiuServiceImpl implements DispositiuService {
     }
 
     @Override
-    public Optional<Dispositiu> getDeviceById(Long id) {
-        return dispositiuDAO.findById(id);
+    @Transactional(readOnly = true)
+    public Dispositiu getDeviceById(Long id) {
+        return dispositiuDAO.findById(id).orElse(null);
     }
 
     @Override

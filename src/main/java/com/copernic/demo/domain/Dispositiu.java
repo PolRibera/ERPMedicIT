@@ -16,16 +16,15 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "dispositiu")
-public class Dispositiu implements Serializable {
+public class Dispositiu {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idDispositiu;
+    private Long id_dispositiu;
 
     @NotEmpty
-    private String Nom;
+    private String nom;
 
     @NotEmpty
     private String Tipus;

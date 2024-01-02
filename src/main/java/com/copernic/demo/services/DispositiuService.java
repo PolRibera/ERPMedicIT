@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface DispositiuService {
     List<Dispositiu> getAllDevices();
-    Optional<Dispositiu> getDeviceById(Long id);
+    Dispositiu getDeviceById(Long id);
     Dispositiu saveDevice(Dispositiu device);
     void deleteDevice(Long id);
 }
