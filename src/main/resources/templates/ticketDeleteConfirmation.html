@@ -41,6 +41,6 @@
     <h1>ticket Delete Confirmation</h1>
     <p>Estas segur que vols borrar el ticket?</p>
     <a th:href="@{'/deleteOK/' + ${ticket.id}}">Delete</a>
-    <a th:href="@{'/tickets'}">Cancel</a>
+    <a th:href="@{/tickets?state=all}">Cancel</a>
 </body>
 </html>

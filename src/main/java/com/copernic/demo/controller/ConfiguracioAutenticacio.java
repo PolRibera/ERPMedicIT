@@ -59,12 +59,12 @@ public class ConfiguracioAutenticacio {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/login", "/register","/","/inici").permitAll()
+                        .requestMatchers("/login", "/","/inici").permitAll()
                         //En el nostre cas el mètode hasAnyAuthority fa el mateix que HasAnyRoles, o hasAuthority el mateix que hasRol, però en aquesta nova versió per autoritzar els usuaris, els mètodes
                         //dels rols, normalment donen problemes, els Authority, no.
                         .requestMatchers("/Mapa/**", "/ticket/**", "/tickets")
                         .hasAnyAuthority("admin", "cliente", "tecnico")
-                        .requestMatchers("/desbloqueja/**","/bloquejats")
+                        .requestMatchers("/desbloqueja/**","/bloquejats","/register")
                         .hasAnyAuthority("admin")
                         .requestMatchers("/users")
                         .hasAnyAuthority("admin","tecnico")//URL iniciGossos on pot accedir el rol de veterinari o pacient

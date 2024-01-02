@@ -30,4 +30,10 @@ public interface TicketService {
     List<Consulta> getConsultesIncidencies();
 
     List<Ticket> getTicketsByConsulta(Long id);
+
+    List<Ticket> getIncidenciesOpened();
+
+    List<Ticket> getIncidenciesOpenedUrge();
+
+    List<Ticket> getIncidenciesClosed();
 }

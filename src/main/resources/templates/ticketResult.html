@@ -44,7 +44,7 @@
     <h1>ticket Information</h1>
     <p>ID: <span th:text="${ticket.id}"></span></p>
     <p>Nom: <span th:text="${ticket.nom}"></span></p>
-    <a th:href="@{'/tickets'}">Back to List</a>
+    <a th:href="@{/tickets?state=all}">Back to List</a>
 </body>
 </html>
 

@@ -49,14 +49,40 @@ public class TicketController {
     }
 
     @GetMapping("/tickets")
-    public String listtickets(Model model) {
-        List<Ticket> tickets = ticketService.getAllTickets();
+    public String listTickets(@RequestParam(name = "state", required = false) String state, Model model) {
+        List<Ticket> tickets;
+        switch (state) {
+            case "activo":
+                tickets = ticketService.getIncidenciesOpened();
+                break;
+            case "activo_urgencia":
+                tickets = ticketService.getIncidenciesOpenedUrge();
+                break;
+            case "cerrado":
+                tickets = ticketService.getIncidenciesClosed();
+                break;
+            case "all":
+                tickets = ticketService.getAllTickets();
+                break;
+            default:
+                tickets = ticketService.getAllTickets();
+                break;
+        }
+        model.addAttribute("tickets", tickets);
+        return "ticketList";
+    }
+
+    @GetMapping("/tickets?state=closed")
+    public String listicketsClosed(Model model) {
+        List<Ticket> tickets = ticketService.getIncidenciesClosed();
         model.addAttribute("tickets", tickets);
         return "ticketList";
     }
     @GetMapping("/update/{id}")
     public String update(Ticket ticket,Model model) {
         ticket = ticketService.getTicketById(ticket.getId());
+        List<Consulta> consultes = ConsultaDAO.findAll();
+        model.addAttribute("consultes", consultes);
         model.addAttribute("ticket", ticket);
         return "ticketForm";
     }
@@ -79,7 +105,7 @@ public class TicketController {
     @GetMapping("/deleteOK/{id}")
     public String delete(Ticket ticket) {
         ticketService.deleteTicket(ticket.getId());
-        return "redirect:/tickets";
+        return "redirect:/tickets?state=all";
     }
 
     @GetMapping("/ticket/{id}/messages")

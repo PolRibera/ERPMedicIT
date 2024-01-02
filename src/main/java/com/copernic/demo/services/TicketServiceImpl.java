@@ -72,6 +72,24 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesOpened() {
+        return ticketDAO.findbyEstadoOpen();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesOpenedUrge() {
+        return ticketDAO.findbyEstadoOpenUrge();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesClosed() {
+        return ticketDAO.findbyEstadoClosed();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Ticket> getTicketsByConsulta(Long idconsulta) {
         Consulta c = consultaDAO.getReferenceById(idconsulta);
         return ticketDAO.findByConsulta(c);

@@ -17,6 +17,7 @@ public class Ticket {
     private Long id;
     private String nom;
     private LocalDateTime fecha;
+    private String estado;
 
     @ManyToOne
     @JoinColumn(name = "author_id")

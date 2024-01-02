@@ -53,6 +53,14 @@
     </ul>
   </nav>
 </header>
+<!-- Modificación en el enlace del header -->
+  <div class="flex h-full">
+    <a th:href="@{/tickets?state=activo}" class="w-64 rounded-lg border bg-gray-100 text-gray-600 h-10 px-5 pr-10 mb-2 text-sm focus:outline-none">Abiertos</a>
+    <a th:href="@{/tickets?state=activo_urgencia}" class="w-64 rounded-lg border bg-gray-100 text-gray-600 h-10 px-5 pr-10 mb-2 text-sm focus:outline-none">Urgentes</a>
+    <a th:href="@{/tickets?state=cerrado}" class="w-64 rounded-lg border bg-gray-100 text-gray-600 h-10 px-5 pr-10 mb-2 text-sm focus:outline-none">Cerrados</a>
+    <a th:href="@{/tickets?state=all}" class="w-64 rounded-lg border bg-gray-100 text-gray-600 h-10 px-5 pr-10 mb-2 text-sm focus:outline-none">Todos</a>
+    </a>
+  </div>
   <div class="flex h-full">
     <aside class="w-64 bg-gray-100 p-8">
       <nav>
@@ -108,7 +116,7 @@
             <h3 class="tracking-tight text-lg font-semibold">Ticket <span th:text="${ticket.id}"></span></h3>
             <h3  th:text="${ticket.nom}" class="tracking-tight text-lg font-semibold"></h3>
             <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 w-fit text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 text-white bg-green-500">
-              Open
+              <span th:text="${ticket.estado}"></span>
             </div>
           </div>
           <div class="p-6">

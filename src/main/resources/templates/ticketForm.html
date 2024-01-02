@@ -75,10 +75,15 @@
         <select id="consulta_id" th:field="*{consulta}" name="consulta_id">
             <option th:each="consulta : ${consultes}" th:value="${consulta.getIdconsulta()}" th:text="${consulta.getNom()}"></option>
         </select>
+        <select id="estado" th:field="*{estado}" name="estado">
+            <option value="activo">Activo</option>
+            <option value="activo_urgencia">Activo con urgencia</option>
+            <option value="cerrado">Cerrado</option>
+        </select>
         <br>
 
         <button type="submit">Genera!</button>
-        <a id="boton-cancelar" th:href="@{/tickets}">Cancelar</a>
+        <a id="boton-cancelar" th:href="@{/tickets?state=all}">Cancelar</a>
     </form>
 </body>
 </html>
