@@ -21,7 +21,7 @@ public class Dispositiu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_dispositiu;
+    private Long id;
 
     @NotEmpty
     private String nom;
@@ -29,11 +29,13 @@ public class Dispositiu {
     @NotEmpty
     private String Tipus;
 
-    @NotEmpty
+
     private String Descripcio;
 
-    @NotEmpty
+
     private String Estat;
+
+    private Long consulta_Id;
 
 
 }

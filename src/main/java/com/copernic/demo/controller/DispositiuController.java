@@ -57,11 +57,25 @@ public class DispositiuController {
 
     @GetMapping("/editarDispositivo/{id}")
     public String update(Dispositiu dispositiu,Model model) {
-        dispositiu = dispositiuService.getDeviceById(dispositiu.getId_dispositiu());
+        dispositiu = dispositiuService.getDeviceById(dispositiu.getId());
         model.addAttribute("dispositiu", dispositiu);
         return "dispositivosForm";
     }
 
 
+    @GetMapping("/borrarDispositivo/{id}")
+    public String delete(@PathVariable Long id, Model model) {
+        Dispositiu dispositiu = dispositiuService.getDeviceById(id);
+        model.addAttribute("dispositiu", dispositiu);
+        return "dispositiuDeleteConfirmation";
+    }
+    @GetMapping("/borrarDisOk/{id}")
+    public String delete(Dispositiu dispositiu) {
+        dispositiuService.deleteDevice(dispositiu.getId());
+        return "redirect:/dispositius";
+    }
+
+
 
 }
+

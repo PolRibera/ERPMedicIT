@@ -38,7 +38,11 @@ public class DispositiuServiceImpl implements DispositiuService {
     }
 
     @Override
+    @Transactional
     public void deleteDevice(Long id) {
-        dispositiuDAO.deleteById(id);
+        Dispositiu dispositiu = dispositiuDAO.findById(id).orElse(null);
+        if (dispositiu != null) {
+            dispositiuDAO.delete(dispositiu);
+        }
     }
 }

@@ -33,22 +33,25 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Acciones</th>
+                    <th>Nom dispositiu</th>
+                    <th>Tipus</th>
+                    <th>Descripcio</th>
+                    <th>Estat</th>
+                    <th>Consulta</th>
                 </tr>
                 </thead>
                 <tbody>
                <tr th:each="dispositiu : ${dispositius}">
-               <td th:text="${dispositiu.id_dispositiu}"></td>
+               <td th:text="${dispositiu.id}"></td>
                <td th:text="${dispositiu.nom}"></td>
                <td th:text="${dispositiu.tipus}"></td>
                <td th:text="${dispositiu.descripcio}"></td>
                <td th:text="${dispositiu.estat}"></td>
+               <td th:text="${dispositiu.consulta_Id}"></td>
+
                <td>
-                    <a th:href="@{'/editarDispositivo/'+${dispositiu.id_dispositiu}}">Update</a>
-                    <a th:href="@{'/borrarDispositivo/'+${dispositiu.id_dispositiu}}">Delete</a>
+                    <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Update</a>
+                    <a th:href="@{'/borrarDispositivo/'+${dispositiu.id}}">Delete</a>
                </td>
                </tr>
 
