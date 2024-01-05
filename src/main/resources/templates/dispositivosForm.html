@@ -76,12 +76,55 @@
         cursor: pointer;
         text-decoration: none;
     }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    nav li {
+        float: left;
+    }
+
+    nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    nav li a:hover {
+        background-color: #ddd;
+        color: #333;
+    }
 </style>
 <head>
     <meta charset="UTF-8">
     <title>Nou Dispositiu</title>
 </head>
 <body>
+<header>
+    <h1>Nuevo Dispositivo</h1>
+    <nav>
+        <ul>
+            <!-- Modificación en el enlace del header -->
+            <li><a th:href="@{/inici}">Inici</a></li>
+        </ul>
+    </nav>
+</header>
 <h1>Genera Dispositiu</h1>
 <form th:object="${dispositiu}" th:action="@{/nuevoDispositivo}" method="post">
     <input th:type="hidden" th:field="*{id}"/>
@@ -100,7 +143,9 @@
         <option value="incidencia">Incidencia</option>
     </select>
     <label>Consulta</label>
-    <input type="text" id="consultaId" th:field="*{consulta_Id}" >
+    <select id="consulta" th:field="*{consulta.idconsulta}" name="consulta_id">
+        <option th:each="consulta : ${consultes}" th:value="${consulta.getIdconsulta()}" th:text="${consulta.getNom()}"></option>
+    </select>
     <br>
 
     <button type="submit">Genera!</button>

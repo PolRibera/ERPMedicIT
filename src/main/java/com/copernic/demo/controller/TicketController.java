@@ -3,6 +3,7 @@ package com.copernic.demo.controller;
 import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.RolDAO;
 import com.copernic.demo.domain.*;
+import com.copernic.demo.services.DispositiuService;
 import com.copernic.demo.services.TicketService;
 import com.copernic.demo.services.UsuariService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class TicketController {
     UsuariService usuariService;
 
     @Autowired
+    DispositiuService dispositiuService;
+
+    @Autowired
     RolDAO rolDAO;
 
     @Autowired
@@ -32,10 +36,15 @@ public class TicketController {
 
 
     @GetMapping("/ticket")
-    public String mostrarFormulario(Ticket ticket, Model model) {
+    public String mostrarFormulario(@RequestParam(name = "consulta", required = false) Long consulta_id, Ticket ticket, Model model) {
         model.addAttribute("ticket", ticket);
-        List<Consulta> consultes = ConsultaDAO.findAll();
-        model.addAttribute("consultes", consultes);
+        if (consulta_id != null) {
+            Consulta consulta = ConsultaDAO.findById(consulta_id).orElse(null);
+            model.addAttribute("consultes", consulta);
+        } else {
+           List<Consulta> consultes = ConsultaDAO.findAll();
+           model.addAttribute("consultes", consultes);
+        }
         return "ticketForm";
     }
 
@@ -53,7 +62,8 @@ public class TicketController {
         List<Ticket> tickets;
         switch (state) {
             case "activo":
-                tickets = ticketService.getIncidenciesOpened();
+                tickets = ticketService.getIncidenciesOpenedUrge();
+                tickets.addAll(ticketService.getIncidenciesOpened());
                 break;
             case "activo_urgencia":
                 tickets = ticketService.getIncidenciesOpenedUrge();
@@ -72,12 +82,6 @@ public class TicketController {
         return "ticketList";
     }
 
-    @GetMapping("/tickets?state=closed")
-    public String listicketsClosed(Model model) {
-        List<Ticket> tickets = ticketService.getIncidenciesClosed();
-        model.addAttribute("tickets", tickets);
-        return "ticketList";
-    }
     @GetMapping("/update/{id}")
     public String update(Ticket ticket,Model model) {
         ticket = ticketService.getTicketById(ticket.getId());
@@ -90,11 +94,17 @@ public class TicketController {
     @GetMapping("/consulta/{id}")
     public String consultesView(@PathVariable Long id,Model model) {
         Consulta consulta = ConsultaDAO.findById(id).orElse(null);
-        List<Ticket> tickets = ticketService.getTicketsByConsulta(id);
+        List<Ticket> ticketsClosed = ticketService.getTicketsClosedByConsulta(id);
+        List<Ticket> ticketsOpen = ticketService.getTicketsOpenByConsulta(id);
+        List<Dispositiu> dispositius = dispositiuService.findByConsultaId(id);
         model.addAttribute("consulta", consulta);
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets", ticketsOpen);
+        model.addAttribute("ticketsCerrados", ticketsClosed);
+        model.addAttribute("dispositius", dispositius);
         return "consultaView";
     }
+
+
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Model model) {
@@ -160,12 +170,19 @@ public class TicketController {
 
     @GetMapping("/mapa")
     public String ShowMapa(Model model) {
-        List<Consulta> consultesIncidencies = ticketService.getConsultesIncidencies();
+        List<Consulta> getConsultesIncidenciesUrge = ticketService.getConsultesIncidenciesUrge();
         List<Integer> consultesIncidenciesId = new ArrayList<>(); // Inicializa la lista
-        for (Consulta consulta : consultesIncidencies) {
+        for (Consulta consulta : getConsultesIncidenciesUrge) {
             consultesIncidenciesId.add(Math.toIntExact(consulta.getIdconsulta()));
         }
         model.addAttribute("consultesIncidencies", consultesIncidenciesId);
+
+        List<Consulta> getConsultesIncidenciesNormals = ticketService.getConsultesIncidenciesNormals();
+        List<Integer> consultesIncidenciesId2 = new ArrayList<>(); // Inicializa la lista
+        for (Consulta consulta : getConsultesIncidenciesNormals) {
+            consultesIncidenciesId2.add(Math.toIntExact(consulta.getIdconsulta()));
+        }
+        model.addAttribute("consultesIncidencies2", consultesIncidenciesId2);
         return "Mapa";
     }
 

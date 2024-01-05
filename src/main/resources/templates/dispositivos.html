@@ -20,15 +20,57 @@
         form {
             margin-top: 20px;
         }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-
+<header>
+    <h1>Nuevo Dispositivo</h1>
+    <nav>
+        <ul>
+            <!-- Modificación en el enlace del header -->
+            <li><a th:href="@{/inici}">Inici</a></li>
+        </ul>
+    </nav>
+</header>
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1>Device Management</h1>
-            <a th:href="nuevoDispositivo" class="btn btn-primary">New Device</a>
+            <a th:href="@{/nuevoDispositivo}" class="btn btn-primary">New Device</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -47,7 +89,7 @@
                <td th:text="${dispositiu.tipus}"></td>
                <td th:text="${dispositiu.descripcio}"></td>
                <td th:text="${dispositiu.estat}"></td>
-               <td th:text="${dispositiu.consulta_Id}"></td>
+               <td th:text="${dispositiu.consulta.getNom()}"></td>
 
                <td>
                     <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Update</a>

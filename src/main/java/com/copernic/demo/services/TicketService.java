@@ -26,9 +26,15 @@ public interface TicketService {
     Mensaje saveMensaje(Mensaje mensaje);
     List<Mensaje> getMessages(Long ticketId);
 
-    List<Consulta> getConsultesIncidencies();
+    List<Consulta> getConsultesIncidenciesNormals();
+
+    List<Consulta> getConsultesIncidenciesUrge();
 
     List<Ticket> getTicketsByConsulta(Long id);
+
+    List<Ticket> getTicketsClosedByConsulta(Long id);
+
+    List<Ticket> getTicketsOpenByConsulta(Long id);
 
     List<Ticket> getIncidenciesOpened();
 

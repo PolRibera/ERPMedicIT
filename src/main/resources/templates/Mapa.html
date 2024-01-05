@@ -89,6 +89,13 @@
             pointer-events: none;/* Red color with opacity */
             /* You'll set the size and position using JavaScript */
         }
+
+        .area-overlay2 {
+            position: absolute;
+            background-color: rgba(255, 234, 0, 0.5);
+            pointer-events: none;/* Red color with opacity */
+            /* You'll set the size and position using JavaScript */
+        }
     </style>
 
 
@@ -184,6 +191,7 @@
 </div>
 <div class="content">
     <input type="hidden" id="consultaIds" th:value="${consultesIncidencies}" />
+    <input type="hidden" id="consultaIds2" th:value="${consultesIncidencies2}" />
 </div>
 
 <script>
@@ -201,6 +209,9 @@
     }
     const consultaIdsValue = document.getElementById('consultaIds').value;
     const consultaIds = JSON.parse(consultaIdsValue);
+
+    const consultaIds2Value = document.getElementById('consultaIds2').value;
+    const consultaIds2 = JSON.parse(consultaIds2Value);
     // Adjusting this for all areas
     document.querySelectorAll('area').forEach((area) => {
         // Obten el ID numérico del área
@@ -213,6 +224,12 @@
             // Puedes agregar información adicional al overlay si es necesario
             document.querySelector('.image-container').appendChild(overlay);
             positionOverlay(area, overlay);
+        } else if (consultaIds2.includes(areaId)) {
+            const overlay2 = document.createElement('div');
+            overlay2.className = 'area-overlay2';
+            // Puedes agregar información adicional al overlay si es necesario
+            document.querySelector('.image-container').appendChild(overlay2);
+            positionOverlay(area, overlay2);
         }
     });
 </script>
