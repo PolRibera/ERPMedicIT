@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    a {
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    button:hover {
+        background-color: #4cae4c;
+    }
+
+    #boton-cancelar {
+        background-color: #d9534f;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    #boton-cancelar:hover {
+        background-color: #ff0000;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Nou Dispositiu</title>
+</head>
+<body>
+<h1>Genera Dispositiu</h1>
+<form th:object="${dispositiu}" th:action="@{/nuevoDispositivo}" method="post">
+    <input th:type="hidden" th:field="*{id}"/>
+    <label for="nom">Informació dispositiu:</label>
+    <br><br>
+    <label>Nom</label>
+    <input type="text" id="nom" th:field="*{nom}" required>
+    <label>Tipus</label>
+    <input type="text" id="tipus" th:field="*{tipus}" required>
+    <label>Descripció</label>
+    <input type="text" id="descripcio" th:field="*{descripcio}" >
+    <label>Estat</label>
+    <select id="estat"  th:field="*{estat}" name="estat">
+        <option value="actiu">Actiu</option>
+        <option value="inactiu">Inactiu</option>
+        <option value="incidencia">Incidencia</option>
+    </select>
+    <label>Consulta</label>
+    <input type="text" id="consultaId" th:field="*{consulta_Id}" >
+    <br>
+
+    <button type="submit">Genera!</button>
+    <a id="boton-cancelar" th:href="@{/dispositius}">Cancelar</a>
+</form>
+</body>
+</html>
+

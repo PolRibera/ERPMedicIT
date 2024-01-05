@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Management</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Device Management</h1>
+            <a th:href="nuevoDispositivo" class="btn btn-primary">New Device</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom dispositiu</th>
+                    <th>Tipus</th>
+                    <th>Descripcio</th>
+                    <th>Estat</th>
+                    <th>Consulta</th>
+                </tr>
+                </thead>
+                <tbody>
+               <tr th:each="dispositiu : ${dispositius}">
+               <td th:text="${dispositiu.id}"></td>
+               <td th:text="${dispositiu.nom}"></td>
+               <td th:text="${dispositiu.tipus}"></td>
+               <td th:text="${dispositiu.descripcio}"></td>
+               <td th:text="${dispositiu.estat}"></td>
+               <td th:text="${dispositiu.consulta_Id}"></td>
+
+               <td>
+                    <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Update</a>
+                    <a th:href="@{'/borrarDispositivo/'+${dispositiu.id}}">Delete</a>
+               </td>
+               </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
