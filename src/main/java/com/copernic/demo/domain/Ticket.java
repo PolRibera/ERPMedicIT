@@ -30,5 +30,7 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket")
     private List<Mensaje> mensajes;
 
+    private Long dispositiu_id;
+
 
 }

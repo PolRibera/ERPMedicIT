@@ -47,12 +47,28 @@ public class TicketController {
         }
         return "ticketForm";
     }
-
+    @GetMapping("/dispositivosPorConsulta")
+    @ResponseBody
+    public List<Dispositiu> getDispositiusPorConsulta(@RequestParam("consultaId") Long consultaId) {
+        return dispositiuService.findByConsultaId(consultaId);
+    }
     @PostMapping("/ticket")
     public String sumbitForm(Ticket ticket, Model model) {
         ticket.setFecha(LocalDateTime.now());
         ticket.setUsuari(usuariService.getUsuariByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         ticketService.saveTicket(ticket);
+        if (ticket.getDispositiu_id() != -1) {
+            Dispositiu dispositiu = dispositiuService.getDeviceById(ticket.getDispositiu_id());
+            dispositiu.setEstat("incidencia");
+            dispositiuService.saveDevice(dispositiu);
+        }
+        if (ticket.getEstado().equals("cerrado")) {
+            if (ticket.getDispositiu_id() != -1) {
+                Dispositiu dispositiu = dispositiuService.getDeviceById(ticket.getDispositiu_id());
+                dispositiu.setEstat("actiu");
+                dispositiuService.saveDevice(dispositiu);
+            }
+        }
         model.addAttribute("ticket", ticket);
         return "ticketResult";
     }
@@ -85,8 +101,9 @@ public class TicketController {
     @GetMapping("/update/{id}")
     public String update(Ticket ticket,Model model) {
         ticket = ticketService.getTicketById(ticket.getId());
-        List<Consulta> consultes = ConsultaDAO.findAll();
-        model.addAttribute("consultes", consultes);
+        Consulta consulta = ticket.getConsulta();
+        model.addAttribute("consultes", consulta);
+        ticket.setDispositiu_id(ticket.getDispositiu_id());
         model.addAttribute("ticket", ticket);
         return "ticketForm";
     }
@@ -102,6 +119,39 @@ public class TicketController {
         model.addAttribute("ticketsCerrados", ticketsClosed);
         model.addAttribute("dispositius", dispositius);
         return "consultaView";
+    }
+    @GetMapping("/newconsulta")
+    public String mostrarFormularioConsultes(Consulta consulta, Model model) {
+        model.addAttribute("consulta", consulta);
+        return "consultaForm";
+    }
+
+    @PostMapping("/newconsulta")
+    public String newConsulta(Consulta consulta, Model model) {
+        ConsultaDAO.save(consulta);
+        model.addAttribute("consulta", consulta);
+        return "redirect:/consultes";
+    }
+
+
+    @GetMapping("/consultes")
+    public String consultesList(Model model) {
+        List<Consulta> consultes = ConsultaDAO.findAll();
+        model.addAttribute("consultes", consultes);
+        return "consultesList";
+    }
+
+    @GetMapping("/updateconsulta/{id}")
+    public String UpdateConsulta(@PathVariable Long id, Model model) {
+        Consulta consultaa = ConsultaDAO.findById(id).orElse(null);
+        model.addAttribute("consulta", consultaa);
+        return "consultaForm";
+    }
+
+    @GetMapping("/deleteconsulta/{id}")
+    public String DeleteConsulta(@PathVariable Long id) {
+        ConsultaDAO.delete(ConsultaDAO.getReferenceById(id));
+        return "redirect:/consultes";
     }
 
 
