@@ -147,7 +147,7 @@
     <input type="hidden" name="username" th:value="${username}">
     <select id="rol" name="tipo">
         <option value="mensaje">Mensaje</option>
-        <option value="accion">Accion</option>
+        <option th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" value="accion">Accion</option>
         <option value="solicitud">Solicitud</option>
     </select>
     <button type="submit">Enviar</button>
