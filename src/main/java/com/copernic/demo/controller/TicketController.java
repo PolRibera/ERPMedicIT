@@ -168,6 +168,15 @@ public class TicketController {
         return "redirect:/tickets?state=all";
     }
 
+    @PostMapping("/actualizarticket/{id}")
+    public String ActualitzarTicketEstat(@PathVariable Long id,@RequestParam(name = "state", required = false) String state, Model model ){
+        Ticket ticket = ticketService.getTicketById(id);
+        model.addAttribute("estado",ticket.getEstado());
+        ticket.setEstado(state);
+        ticketService.saveTicket(ticket);
+        return "redirect:/ticket/"+ticket.getId()+"/messages";
+    }
+
     @GetMapping("/ticket/{id}/messages")
     public String showTicketMessages(@PathVariable Long id, Model model) {
         Ticket ticket = ticketService.getTicketById(id);
