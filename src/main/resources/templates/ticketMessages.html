@@ -88,10 +88,45 @@
             margin-right: auto;
         }
     </style>
+    <script>
+        function updateStateValue() {
+            var select = document.getElementById('state');
+            var selectedValue = select.options[select.selectedIndex].value;
+
+            var form = document.getElementById('ticket-form');
+            var action = form.getAttribute('action');
+
+            var updatedAction = action.replace(/(\?state=)[^&]+/, '$1' + selectedValue);
+
+            form.setAttribute('action', updatedAction);
+        }
+
+        // Establecer el estado actual del ticket como la opción seleccionada al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentState = document.getElementById('currentState')/* Aquí obtén el estado actual del ticket desde el atributo en HTML */;
+            var select = document.getElementById('state');
+
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === currentState) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+        });
+    </script>
 </head>
 <body>
 <h1>Ticket <span th:text="${ticket.id}"></span></h1>
 <p th:text="${ticket.nom}"></p>
+<form id="ticket-form" th:action="@{'/actualizarticket/'+${ticket.id}}" method="post">
+    <input type="hidden" id="currentState" th:value="${ticket.id}" />
+    <select id="state" name="state" onchange="updateStateValue()">
+        <option value="activo" th:selected="${ticket.estado == 'activo'}">Activo</option>
+        <option value="activo_urgencia" th:selected="${ticket.estado == 'activo_urgencia'}">Activo con urgencia</option>
+        <option value="cerrado" th:selected="${ticket.estado == 'cerrado'}">Cerrado</option>
+    </select>
+    <button type="submit">Actualizar</button>
+</form>
 <div id="messages">
     <ul>
         <li th:each="message : ${messages}"
