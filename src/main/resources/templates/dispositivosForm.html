@@ -76,7 +76,27 @@
         text-decoration: none;
     }
 
+    #boton-cancelar2 {
+        background-color: #d9534f;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
     #boton-cancelar:hover {
+        background-color: #ff0000;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.5s ease;
+    }
+
+    #boton-cancelar2:hover {
         background-color: #ff0000;
         padding: 10px 15px;
         border: none;
@@ -162,7 +182,8 @@
     <br>
 
     <button type="submit">Genera!</button>
-    <a id="boton-cancelar" th:href="@{/dispositius}">Cancelar</a>
+    <a id="boton-cancelar" th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/dispositius}">Cancelar</a>
+    <a id="boton-cancelar2" th:if="${Rol.getNom().equals('cliente')}" th:href="@{/mapa}">Cancelar</a>
 </form>
 </body>
 </html>

@@ -254,6 +254,17 @@ public class TicketController {
             consultesIncidenciesId2.add(Math.toIntExact(consulta.getIdconsulta()));
         }
         model.addAttribute("consultesIncidencies2", consultesIncidenciesId2);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        model.addAttribute("username", username);
+        Rol rol = rolDAO.findByNom(usuariService.getUsuariByUsername(username).getRol().getNom());
+        model.addAttribute("Rol",rol);
         return "Mapa";
     }
 

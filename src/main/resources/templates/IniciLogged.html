@@ -124,9 +124,9 @@
 </header>
 <nav>
     <ul>
-        <li><a th:href="@{/tickets?state=activo}">Incidencias</a></li>
+        <li><a th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/tickets?state=activo}">Incidencias</a></li>
         <li><a th:href="@{/mapa}">Mapa</a></li>
-        <li><a th:href="@{/dispositius}">Dispositivos</a></li>
+        <li><a th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/dispositius}">Dispositivos</a></li>
         <li><a th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/users}">Usuarios</a></li>
         <li><a th:if="${Rol.getNom().equals('admin')}" th:href="@{/bloquejats}">Usuarios Bloqueados</a></li>
         <li><a th:if="${Rol.getNom().equals('admin')}" th:href="@{/register}" class="button">Generar Nuevo Usuario</a></li>

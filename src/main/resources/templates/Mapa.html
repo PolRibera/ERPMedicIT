@@ -124,7 +124,7 @@
 
 <div class="content">
     <!-- Botón "Registrar Dispositivo" -->
-    <a th:href="${'/consultes'}" class="register-button">Registrar Consulta</a>
+    <a th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="${'/consultes'}" class="register-button">Registrar Consulta</a>
 
     <div class="image-container">
 
