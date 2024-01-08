@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tickets</title>
+    <title>Gestion Usuarios</title>
     <style>
         /* Estilos para el header y la barra de navegación */
         body {
@@ -36,7 +36,7 @@
         }
 
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -101,22 +101,26 @@
             background-color: #ddd;
             color: #333;
         }
+        a:hover{
+            background-color: #ddd;
+            color: #333; 
+        }
     </style>
 </head>
 <body>
 <header>
-    <h1>Usuaris</h1>
+    <h1>Usuarios</h1>
     <nav>
         <ul>
             <!-- Modificación en el enlace del header -->
-            <li><a th:href="@{/inici}">Inici</a></li>
+            <li><a th:href="@{/inici}">Inicio</a></li>
         </ul>
     </nav>
 </header>
 <table>
     <tr>
         <th>Id</th>
-        <th>Nom</th>
+        <th>Nombre</th>
         <th>Rol</th>
     </tr>
     <tr th:each="user : ${users}">
@@ -124,7 +128,7 @@
         <td th:text="${user.username}"></td>
         <td th:text="${user.rol.getNom()}"></td>
         <td>
-            <a th:href="@{'/desbloqueja/'+${user.username}}">Desbloqueja</a>
+            <a th:href="@{'/desbloqueja/'+${user.username}}">Desbloquear</a>
             <!-- Botón para ir a la página de mensajes -->
         </td>
     </tr>

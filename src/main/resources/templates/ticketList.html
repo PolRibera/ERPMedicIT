@@ -35,11 +35,13 @@
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
+      border-radius: 5px;
     }
 
     nav li a:hover {
       background-color: #ddd;
       color: #333;
+      transition: background-color 0.5s ease;
     }
   </style>
 </head>
@@ -49,7 +51,7 @@
   <nav>
     <ul>
       <!-- Modificación en el enlace del header -->
-      <li><a th:href="@{/inici}">Inici</a></li>
+      <li><a th:href="@{/inici}">Inicio</a></li>
     </ul>
   </nav>
 </header>
@@ -82,7 +84,7 @@
                 <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
                 <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
               </svg>
-              Open
+              Abrir
             </a>
           </li>
           <li>
@@ -102,7 +104,7 @@
                 <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
                 <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
               </svg>
-              Export PDF
+              Exportar PDF
             </a>
           </li>
         </ul>
@@ -120,23 +122,16 @@
             </div>
           </div>
           <div class="p-6">
-            <p>Created on:<span th:text="${ticket.fecha}"></span></p>
+            <p>Creado en:<span th:text="${ticket.fecha}"></span></p>
             <p>
-              Author: <span th:text="${ticket.usuari.getUsername()}"></span>
+              Autor: <span th:text="${ticket.usuari.getUsername()}"></span>
               <span
                       class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full inline-block mr-2"
                       src="/placeholder.svg?height=24&amp;width=24"
                       alt="User"
               ></span>
               <p>
-                Location: <span th:text="${ticket.consulta.getNom()}"></span>
-            <span
-                    class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full inline-block mr-2"
-                    src="/placeholder.svg?height=24&amp;width=24"
-                    alt="User"
-            ></span>
-                <p>
-                Device: <span th:text="${ticket.dispositiu_id}"></span>
+                Ubicacion: <span th:text="${ticket.consulta.getNom()}"></span>
                 <span
                         class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full inline-block mr-2"
                         src="/placeholder.svg?height=24&amp;width=24"
@@ -158,7 +153,7 @@
                   <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
                   <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
                 </svg>
-                Update
+                Actualizar
               </a>
               <a class="block py-2 text-gray-600 hover:text-black" th:href="@{'/delete/'+${ticket.id}}" rel="ugc">
                 <svg
@@ -176,7 +171,7 @@
                   <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
                   <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
                 </svg>
-                Delete
+                Borrar
               </a>
               <a class="block py-2 text-gray-600 hover:text-black" th:href="@{'/ticket/'+${ticket.id}+'/messages'}" rel="ugc">
                 <svg
@@ -194,7 +189,7 @@
                   <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
                   <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
                 </svg>
-                Messages
+                Mensajes
               </a>
             </p>
           </div>
@@ -202,8 +197,8 @@
       </div>
     </main>
     <aside class="w-80 bg-gray-100 p-8">
-      <h2 class="text-lg font-semibold mb-4">Ticket Details</h2>
-      <p>Click on a ticket to see more details.</p>
+      <h2 class="text-lg font-semibold mb-4">Detalles de Ticket</h2>
+      <p>Clicka al ticket para ver mas detalles.</p>
     </aside>
   </div>
 </body>

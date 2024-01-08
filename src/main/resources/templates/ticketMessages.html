@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Mensajes del Ticket</title>
     <style>
-        /* Estilos para el chat */
         #messages {
             width: 900px;
             margin: auto;
@@ -59,13 +58,13 @@
             color: #333;
             text-align: center;
             font-family: Arial, sans-serif;
+            text-align: center;
+            border: 2px solid #333;
+            border-radius: 20px;
+            margin-right: 40%;
+            margin-left: 40%;
         }
         p {
-            color: #333;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
             color: #333;
             text-align: center;
             font-family: Arial, sans-serif;
@@ -73,6 +72,8 @@
 
         #back-button {
             font-family: Arial, sans-serif;
+            text-align: center;
+            font-weight: bold;
             display: block;
             height: 35px;
             width: 200px;
@@ -86,6 +87,10 @@
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
+        }
+        #back-button:hover {
+            background-color: rgb(34, 160, 233);
+            transition: background-color 0.5s ease;
         }
     </style>
 </head>
@@ -113,6 +118,6 @@
     <button type="submit">Enviar</button>
 </form>
 
-<a id="back-button" th:href="@{/tickets?state=all}">Tornar al llistat de tickets</a>
+<a id="back-button" th:href="@{/tickets?state=all}">Volver al listado de tickets</a>
 </body>
 </html>

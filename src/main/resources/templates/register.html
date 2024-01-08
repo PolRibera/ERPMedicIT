@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRARSE</title>
+    <title>Registrarse</title>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -15,6 +15,10 @@
             margin: 0;
         }
 
+        label{
+            margin-top: 10px;
+            font-weight: bold;
+        }
         .login-container {
             width: 400px;
             background-color: white;
@@ -92,10 +96,10 @@
 <body>
 <div class="login-container">
     <form method="POST" th:object="${usuari}" th:action="@{/register}">
-        <label for="username">Username:</label>
+        <label for="username">Usuario:</label>
         <input type="text" id="username" th:field="*{username}" required>
         <br>
-        <label for="password">Password:</label>
+        <label for="password">Contraseña:</label>
         <input type="password" id="password" th:field="*{password}" required>
         <br>
         <!-- Lista desplegable para seleccionar el rol -->

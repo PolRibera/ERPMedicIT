@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Management</title>
+    <title>Gestion Dispositivos</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -47,12 +47,14 @@
             color: white;
             text-align: center;
             padding: 14px 16px;
+            border-radius: 5px;
             text-decoration: none;
         }
 
         nav li a:hover {
             background-color: #ddd;
             color: #333;
+            transition: background-color 0.5s ease;
         }
     </style>
 </head>
@@ -62,23 +64,23 @@
     <nav>
         <ul>
             <!-- Modificación en el enlace del header -->
-            <li><a th:href="@{/inici}">Inici</a></li>
+            <li><a th:href="@{/inici}">Inicio</a></li>
         </ul>
     </nav>
 </header>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Device Management</h1>
-            <a th:href="@{/nuevoDispositivo}" class="btn btn-primary">New Device</a>
+            <h1>Gestion Dispositivos</h1>
+            <a th:href="@{/nuevoDispositivo}" class="btn btn-primary">Nuevo dispositivo</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nom dispositiu</th>
-                    <th>Tipus</th>
-                    <th>Descripcio</th>
-                    <th>Estat</th>
+                    <th>Nombre dispositivo</th>
+                    <th>Tipos</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
                     <th>Consulta</th>
                 </tr>
                 </thead>
@@ -92,8 +94,8 @@
                <td th:text="${dispositiu.consulta.getNom()}"></td>
 
                <td>
-                    <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Update</a>
-                    <a th:href="@{'/borrarDispositivo/'+${dispositiu.id}}">Delete</a>
+                    <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Actualizar</a>
+                    <a th:href="@{'/borrarDispositivo/'+${dispositiu.id}}">Eliminar</a>
                </td>
                </tr>
 

@@ -25,6 +25,7 @@
         label {
             display: block;
             margin-bottom: 6px;
+            font-weight: bold;
         }
 
         input[type="text"],
@@ -84,10 +85,10 @@
 <body>
 <div>
     <form method="POST" th:action="@{/login}">
-        <label for="username">Usuari:</label>
+        <label for="username">Usuario:</label>
         <input type="text" name="username" id="username"/>
 
-        <label for="password">Contrasenya:</label>
+        <label for="password">Contraseña:</label>
         <input type="password" name="password" id="password"/>
 
         <input type="submit" value="Login"/>
