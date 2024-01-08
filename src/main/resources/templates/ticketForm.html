@@ -78,16 +78,25 @@
     <h1>Generar ticket</h1>
     <form th:object="${ticket}" th:action="@{/ticket}" method="post">
         <input th:type="hidden" th:field="*{id}"/>
-        <label for="nom">Decripción del ticket:</label>
+        <label for="nom">Decripció del ticket:</label>
         <input type="text" id="nom" th:field="*{nom}" required>
+        <label for="consulta_id">Consulta:</label>
         <select id="consulta_id" th:field="*{consulta}" name="consulta_id">
             <option th:each="consulta : ${consultes}" th:value="${consulta.getIdconsulta()}" th:text="${consulta.getNom()}"></option>
         </select>
+        <br>
+        <label for="dispositivo_id">Dispositivo:</label>
+        <select id="dispositivo_id" th:field="*{dispositiu_id}" name="dispositivo_id">
+            <option value="-1">Seleccione un dispositivo</option>
+        </select>
+        <br>
+        <label for="estado">Estado:</label>
         <select id="estado" th:field="*{estado}" name="estado">
             <option value="activo">Activo</option>
             <option value="activo_urgencia">Activo con urgencia</option>
             <option value="cerrado">Cerrado</option>
         </select>
+
         <br>
 
         <button type="submit">Genera!</button>
