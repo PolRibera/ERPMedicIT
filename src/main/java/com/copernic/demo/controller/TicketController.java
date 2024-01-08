@@ -168,12 +168,33 @@ public class TicketController {
         return "redirect:/tickets?state=all";
     }
 
+    @PostMapping("/actualizarticket/{id}")
+    public String ActualitzarTicketEstat(@PathVariable Long id,@RequestParam(name = "state", required = false) String state, Model model ){
+        Ticket ticket = ticketService.getTicketById(id);
+        model.addAttribute("estado",ticket.getEstado());
+        ticket.setEstado(state);
+        ticketService.saveTicket(ticket);
+        return "redirect:/ticket/"+ticket.getId()+"/messages";
+    }
+
     @GetMapping("/ticket/{id}/messages")
     public String showTicketMessages(@PathVariable Long id, Model model) {
         Ticket ticket = ticketService.getTicketById(id);
         model.addAttribute("ticket", ticket);
         List<Mensaje> messages = ticketService.getMessages(id);
         model.addAttribute("messages", messages);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            model.addAttribute("username", username);
+            Rol rol = rolDAO.findByNom(usuariService.getUsuariByUsername(username).getRol().getNom());
+            model.addAttribute("Rol",rol);
+
         return "ticketMessages";
     }
     @GetMapping("/inici")
