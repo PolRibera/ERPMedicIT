@@ -34,17 +34,18 @@
 
     a:hover {
         background-color: #4cae4c;
+        transition: background-color 0.5s ease;
     }
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>ticket</title>
+    <title>Informacion de ticket</title>
 </head>
 <body>
-    <h1>ticket Information</h1>
+    <h1>Informacion de tickets</h1>
     <p>ID: <span th:text="${ticket.id}"></span></p>
-    <p>Nom: <span th:text="${ticket.nom}"></span></p>
-    <a th:href="@{/tickets?state=all}">Back to List</a>
+    <p>Nombre: <span th:text="${ticket.nom}"></span></p>
+    <a th:href="@{/tickets?state=all}">Volver a la lista</a>
 </body>
 </html>
 

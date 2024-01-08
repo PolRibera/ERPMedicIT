@@ -40,19 +40,19 @@
             text-decoration: none;
         }
 
-        nav li a:hover {
-            background-color: #ddd;
-            color: #333;
+        #mensaje{
+            font-size: 30px;
+            font-weight: bold;
         }
 
-        /* Estilos para los botones de login y registro */
+        /* Estilos para los botones de login */
         .right-buttons {
             display: flex;
         }
 
         .right-buttons a {
-            margin-left: 10px;
-            padding: 8px 15px;
+            margin-left: 70px;
+            padding: 8px 30px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -60,18 +60,64 @@
             cursor: pointer;
             text-decoration: none;
         }
+
+        .right-buttons a:hover {
+            background-color: #ddd;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            opacity: 0;
+            transform-origin: center;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        body.show-popup .popup-overlay,
+        body.show-popup .popup-container {
+            display: block;
+            opacity: 1;
+        }
+
+        body.show-popup .popup-container {
+            transform: translate(-50%, -50%) scale(1);
+        }
     </style>
 </head>
-<body>
+<body class="show-popup">
 <header>
     <h1>Menú Principal</h1>
-    <div class="right-buttons">
-        <a th:href="@{/login}" class="button">Login</a>
-    </div>
 </header>
 <nav>
 </nav>
 <!-- Agrega el resto de tu contenido -->
-<h1 style="margin-left: 50px">Registrate o inicia Sesion!!!</h1>
+<div class="popup-overlay"></div>
+    <div class="popup-container">
+        <p id="mensaje">!!!Inicia Sesión!!!</p>
+        <p class="right-buttons">
+            <a th:href="@{/login}" class="button">Login</a></p>
+    </div>
 </body>
 </html>
