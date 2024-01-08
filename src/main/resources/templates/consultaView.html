@@ -30,31 +30,59 @@
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
+            border-radius: 5px;
         }
 
         nav li a:hover {
             background-color: #ddd;
             color: #333;
+            transition: background-color 0.5s ease;
         }
 
         .content {
             padding: 20px;
         }
 
+        #disposituscontent{
+            margin-top: 25px;
+            margin-bottom: 25px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
         .dispositiu {
             border: 1px solid #ddd;
             padding: 10px;
+            border: 2px solid black;
+            margin-top: 30px;
             margin-bottom: 10px;
             border-radius: 5px;
             background-color: #f9f9f9;
-        }
-
-        .dispositiu:hover {
-            background-color: #f0f0f0;
+            margin-left: 30%;
+            margin-right: 30%;
         }
 
         .dispositiu p {
             margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .dispositiu a{
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            background-color: rgb(0, 229, 255);
+            color: black;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-left: 38%;
+            margin-right: 38%;
+        }
+
+        .dispositiu a:hover{
+            background-color: rgb(0, 151, 168);
+            transition: background-color 0.5s ease;
         }
 
         .ticket {
@@ -63,8 +91,91 @@
             border-bottom: 1px solid #ddd;
         }
 
+        #cons{
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+
         .ticket:last-child {
             border-bottom: none;
+        }
+
+        #registrardisp{
+            margin-left: 45%;
+            margin-right: 44%;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            background-color: rgb(0, 229, 255);
+            color: black;
+            padding: 5px;
+        }
+
+        #registrardisp:hover{
+            background-color: rgb(0, 151, 168);
+            transition: background-color 0.5s ease;
+        }
+
+        #registrarticket{
+            margin-top: 100px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            background-color: rgb(0, 229, 255);
+            color: black;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-left: 45%;
+            margin-right: 45%;
+        }
+
+        #registrarticket:hover{
+            background-color: rgb(0, 151, 168);
+            transition: background-color 0.5s ease;
+        }
+
+        .divtickets{
+            border: 2px solid black;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .ticketstitol{
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            border: 3px solid black;
+            border-radius: 5px;
+            margin-left: 30%;
+            margin-right: 30%;
+        }
+
+        .ticketcontent{
+            margin-left: 30%;
+            margin-right: 30%;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding-bottom: 10px;
+        }
+        .ticketcontent li p{
+            font-weight: bold;
+        }
+        .ticketcontent li a{
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            background-color: rgb(0, 229, 255);
+            color: black;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-left: 40%;
+            margin-right: 40%;
+        }
+
+        .ticketcontent li a:hover{
+            background-color: rgb(0, 151, 168);
+            transition: background-color 0.5s ease;
         }
     </style>
 </head>
@@ -77,8 +188,10 @@
         </ul>
     </nav>
     <div class="content">
-        <p>Esta es la página para el área: <span th:text="${consulta.getNom()}"></span></p>
-        <a th:href="@{'/nuevoDispositivo?consulta='+${consulta.idconsulta}}">Añadir dispositivo</a>
+        <p id="cons">Esta es la página para el área: <span th:text="${consulta.getNom()}"></span></p>
+        <a id="registrardisp" th:href="@{'/nuevoDispositivo?consulta='+${consulta.idconsulta}}">Añadir dispositivo</a>
+        <div id="disposituscontent">
+            <p class="ticketstitol">Dispositivos</p>
         <div th:each="dispositiu:${dispositius}" class="dispositiu">
             <p>Id: <span th:text="${dispositiu.id}"></span></p>
             <p>Nombre: <span th:text="${dispositiu.nom}"></span></p>
@@ -86,9 +199,11 @@
             <p>Fecha: <span th:text="${dispositiu.estat}"></span></p>
             <a th:href="@{'/editarDispositivo/'+${dispositiu.id}}">Ir al Dispositivo</a>
         </div>
-        <a th:href="@{'/ticket?consulta='+${consulta.idconsulta}}">Generar un Ticket</a>
-        <h2>Tickets Activos</h2>
-        <ul>
+    </div>
+        <a id="registrarticket" th:href="@{'/ticket?consulta='+${consulta.idconsulta}}">Generar un Ticket</a>
+        <div class="divtickets">
+        <p class="ticketstitol">Tickets Activos</p>
+        <ul class="ticketcontent">
             <li th:each="ticket:${tickets}" class="ticket">
                 <p>Id: <span th:text="${ticket.id}"></span></p>
                 <p>Nombre: <span th:text="${ticket.nom}"></span></p>
@@ -97,9 +212,10 @@
                 <a th:href="@{'/ticket/'+${ticket.id}+'/messages'}">Ir al ticket</a>
             </li>
         </ul>
-
-        <h2>Tickets Cerrados</h2>
-        <ul>
+        </div>
+        <div class="divtickets">
+        <p class="ticketstitol">Tickets Cerrados</p>
+        <ul class="ticketcontent">
             <li th:each="ticket:${ticketsCerrados}" class="ticket">
                 <p>Id: <span th:text="${ticket.id}"></span></p>
                 <p>Nombre: <span th:text="${ticket.nom}"></span></p>
@@ -108,7 +224,7 @@
                 <a th:href="@{'/ticket/'+${ticket.id}+'/messages'}">Ir al ticket</a>
             </li>
         </ul>
-
+    </div>
     </div>
 </body>
 
