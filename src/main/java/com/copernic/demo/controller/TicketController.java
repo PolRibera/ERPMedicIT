@@ -183,6 +183,18 @@ public class TicketController {
         model.addAttribute("ticket", ticket);
         List<Mensaje> messages = ticketService.getMessages(id);
         model.addAttribute("messages", messages);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            model.addAttribute("username", username);
+            Rol rol = rolDAO.findByNom(usuariService.getUsuariByUsername(username).getRol().getNom());
+            model.addAttribute("Rol",rol);
+
         return "ticketMessages";
     }
     @GetMapping("/inici")
