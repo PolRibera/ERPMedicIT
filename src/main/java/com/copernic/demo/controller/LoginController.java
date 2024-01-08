@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -52,6 +53,14 @@ public class LoginController {
     public String updateUser(Usuari usuari,Model model) {
         usuari = usuariService.getUsuariByUsername(usuari.getUsername());
         model.addAttribute("usuari", usuari);
+        model.addAttribute("rols", rolDAO.findAll());
+        return "updateuser";
+    }
+
+    @PostMapping("/updateuser/{username}")
+    public String updateUser(Usuari usuari) {
+        usuari = usuariService.getUsuariByUsername(usuari.getUsername());
+        usuariService.saveUsuari(usuari);
         return "updateuser";
     }
 
@@ -66,5 +75,7 @@ public class LoginController {
         usuariService.deleteUsuari(user.getUsername());
         return "redirect:/users";
     }
+
+
 
 }

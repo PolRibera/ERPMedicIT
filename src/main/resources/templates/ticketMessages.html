@@ -6,13 +6,13 @@
     <style>
         /* Estilos para el chat */
         #messages {
-            width: 400px;
+            width: 900px;
             margin: auto;
             border: 1px solid #ccc;
             padding: 10px;
             border-radius: 5px;
             overflow-y: scroll;
-            height: 300px; /* Altura fija para el chat, agrega un scroll si es necesario */
+            height: 400px;
         }
 
         #messages ul {
@@ -22,40 +22,56 @@
         }
 
         #messages li {
-            background-color: #f2f2f2;
+            border-radius: 5px;
             padding: 10px;
             margin-bottom: 10px;
-            border-radius: 5px;
         }
 
-        /* Estilos para el formulario de mensaje */
-        #mensaje-form {
-            text-align: center;
-            margin-top: 20px;
+        /* Nuevos estilos para mensajes con diferentes tipos */
+        .message-mensaje {
+            background-color: #f2f2f2; /* Gris para mensajes */
         }
 
-        #mensaje-form input[type="text"] {
-            width: 300px;
-            padding: 8px;
+        .message-accion {
+            background-color: #ffff99; /* Amarillo para acciones */
+        }
+
+        .message-solicitud {
+            background-color: #99ff99; /* Verde para solicitudes */
+        }
+
+        form {
+            width: 900px;
+            margin: auto;
             border: 1px solid #ccc;
+            padding: 10px;
             border-radius: 5px;
+            height: 40px;
         }
 
-        #mensaje-form button {
-            padding: 8px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .message-info {
+            font-size: small;
+            margin-top: -10px;
+            padding: 5px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        p {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
         h1 {
             color: #333;
             text-align: center;
             font-family: Arial, sans-serif;
         }
+
         #back-button {
-            /* Estilos para el botón de volver a la lista de tickets */
             font-family: Arial, sans-serif;
             display: block;
             height: 35px;
@@ -70,24 +86,33 @@
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
-
         }
     </style>
 </head>
 <body>
 <h1>Ticket <span th:text="${ticket.id}"></span></h1>
+<p th:text="${ticket.nom}"></p>
 <div id="messages">
     <ul>
-        <li th:each="message : ${messages}" th:text="${message.mensaje}"></li>
+        <li th:each="message : ${messages}"
+            th:class="'message-' + ${message.tipo}">
+            <div class="message-info" th:text="${message.usuari.username} + ' [' + ${message.fecha} + ']'"></div>
+            <span th:text="${message.mensaje}"></span>
+        </li>
     </ul>
 </div>
 
 <form id="mensaje-form" th:action="@{'/ticket/' + ${ticket.id}+'/messages'}" method="post">
     <input type="text" name="mensaje" required>
+    <input type="hidden" name="username" th:value="${username}">
+    <select id="rol" name="tipo">
+        <option value="mensaje">Mensaje</option>
+        <option value="accion">Accion</option>
+        <option value="solicitud">Solicitud</option>
+    </select>
     <button type="submit">Enviar</button>
 </form>
 
-<!-- Botón para volver a la lista de tickets -->
-<a id="back-button" th:href="@{/tickets}">Tornar al llistat de tickets</a>
+<a id="back-button" th:href="@{/tickets?state=all}">Tornar al llistat de tickets</a>
 </body>
 </html>

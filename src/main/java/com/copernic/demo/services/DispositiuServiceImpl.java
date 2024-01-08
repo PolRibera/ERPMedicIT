@@ -6,20 +6,24 @@ package com.copernic.demo.services;
 //-----------------------//
 
 
+import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.DispositiuDAO;
+import com.copernic.demo.domain.Consulta;
 import com.copernic.demo.domain.Dispositiu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DispositiuServiceImpl implements DispositiuService {
 
     @Autowired
     private DispositiuDAO dispositiuDAO;
+
+    @Autowired
+    private ConsultaDAO consultaDAO;
 
     @Override
     public List<Dispositiu> getAllDevices() {
@@ -44,5 +48,13 @@ public class DispositiuServiceImpl implements DispositiuService {
         if (dispositiu != null) {
             dispositiuDAO.delete(dispositiu);
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Dispositiu> findByConsultaId(Long consulta_Id) {
+        Consulta consulta = consultaDAO.findById(consulta_Id).orElse(null);
+        List<Dispositiu> dispositius = dispositiuDAO.findByConsulta(consulta);
+        return dispositius;
     }
 }

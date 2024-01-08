@@ -35,7 +35,9 @@ public class Dispositiu {
 
     private String Estat;
 
-    private Long consulta_Id;
+    @ManyToOne
+    @JoinColumn(name = "consulta_id")
+    private Consulta consulta;
 
 
 }

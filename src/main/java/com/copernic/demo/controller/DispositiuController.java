@@ -8,7 +8,9 @@ package com.copernic.demo.controller;
 
 // DeviceController.java
 
+import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.DispositiuDAO;
+import com.copernic.demo.domain.Consulta;
 import com.copernic.demo.domain.Dispositiu;
 import com.copernic.demo.domain.Ticket;
 import com.copernic.demo.services.DispositiuService;
@@ -31,6 +33,9 @@ public class DispositiuController {
     @Autowired
     DispositiuDAO dispositiuDAO;
 
+    @Autowired
+    ConsultaDAO consultaDAO;
+
 
 
 
@@ -43,13 +48,20 @@ public class DispositiuController {
     }
 
     @GetMapping("/nuevoDispositivo")
-    public String mostrarFormulario(Dispositiu dispositiu, Model model) {
+    public String mostrarFormulario(@RequestParam(name = "consulta", required = false) Long consulta_Id,Dispositiu dispositiu, Model model) {
+        if (consulta_Id != null) {
+            Consulta consulta = consultaDAO.findById(consulta_Id).orElse(null);
+            model.addAttribute("consultes", consulta);
+        } else {
+            List<Consulta> consultes = consultaDAO.findAll();
+            model.addAttribute("consultes", consultes);
+        }
         model.addAttribute("dispositiu", dispositiu);
         return "dispositivosForm";
 }
 
     @PostMapping("/nuevoDispositivo")
-    public String sumbitForm(Dispositiu dispositiu, Model model) {
+    public String sumbitForm( Dispositiu dispositiu, Model model) {
         dispositiuService.saveDevice(dispositiu);
         model.addAttribute("dispositiu", dispositiu);
         return "redirect:/dispositius";
@@ -58,6 +70,7 @@ public class DispositiuController {
     @GetMapping("/editarDispositivo/{id}")
     public String update(Dispositiu dispositiu,Model model) {
         dispositiu = dispositiuService.getDeviceById(dispositiu.getId());
+        model.addAttribute("consultes", dispositiu.getConsulta());
         model.addAttribute("dispositiu", dispositiu);
         return "dispositivosForm";
     }

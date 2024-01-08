@@ -62,6 +62,32 @@
         background-color: #ff0000;
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("consulta_id").addEventListener("pointermove", function() {
+            var consultaId = this.value;
+            var dispositivoSelect = document.getElementById("dispositivo_id");
+
+            // Limpiamos opciones anteriores, manteniendo la opción por defecto
+            dispositivoSelect.innerHTML = '<option value="-1">Seleccione un dispositivo</option>';
+            if (consultaId) {
+                fetch('/dispositivosPorConsulta?consultaId=' + consultaId)
+                    .then(response => response.json())
+                    .then(dispositivos => {
+                        dispositivoSelect.disabled = false;
+                        dispositivos.forEach(function(dispositivo) {
+                            var option = document.createElement("option");
+                            option.value = dispositivo.id;
+                            option.textContent = dispositivo.nom; // Utiliza 'nom' para mostrar el nombre del dispositivo
+                            dispositivoSelect.appendChild(option);
+                        });
+                    });
+            } else {
+                dispositivoSelect.disabled = true;
+            }
+        });
+    });
+</script>
 <head>
     <meta charset="UTF-8">
     <title>Nou Ticket</title>
@@ -72,10 +98,27 @@
         <input th:type="hidden" th:field="*{id}"/>
         <label for="nom">Decripció del ticket:</label>
         <input type="text" id="nom" th:field="*{nom}" required>
+        <label for="consulta_id">Consulta:</label>
+        <select id="consulta_id" th:field="*{consulta}" name="consulta_id">
+            <option th:each="consulta : ${consultes}" th:value="${consulta.getIdconsulta()}" th:text="${consulta.getNom()}"></option>
+        </select>
+        <br>
+        <label for="dispositivo_id">Dispositivo:</label>
+        <select id="dispositivo_id" th:field="*{dispositiu_id}" name="dispositivo_id">
+            <option value="-1">Seleccione un dispositivo</option>
+        </select>
+        <br>
+        <label for="estado">Estado:</label>
+        <select id="estado" th:field="*{estado}" name="estado">
+            <option value="activo">Activo</option>
+            <option value="activo_urgencia">Activo con urgencia</option>
+            <option value="cerrado">Cerrado</option>
+        </select>
+
         <br>
 
         <button type="submit">Genera!</button>
-        <a id="boton-cancelar" th:href="@{/tickets}">Cancelar</a>
+        <a id="boton-cancelar" th:href="@{/tickets?state=all}">Cancelar</a>
     </form>
 </body>
 </html>

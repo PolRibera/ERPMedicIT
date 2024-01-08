@@ -1,7 +1,9 @@
 package com.copernic.demo.services;
 
+import com.copernic.demo.dao.ConsultaDAO;
 import com.copernic.demo.dao.MensajeDAO;
 import com.copernic.demo.dao.TicketDAO;
+import com.copernic.demo.domain.Consulta;
 import com.copernic.demo.domain.Mensaje;
 import com.copernic.demo.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private MensajeDAO mensajeDAO;
+
+    @Autowired
+    private ConsultaDAO consultaDAO;
 
     @Override
     public Ticket saveTicket(Ticket ticket) {
@@ -57,6 +62,62 @@ public class TicketServiceImpl implements TicketService {
     @Transactional(readOnly = true)
     public List<Mensaje> getMessages(Long ticketId) {
         return mensajeDAO.findByTicket_Id(ticketId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Consulta> getConsultesIncidenciesNormals() {
+        return consultaDAO.findConsultesWithIncidenciesNormals();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Consulta> getConsultesIncidenciesUrge() {
+        return consultaDAO.findConsultesWithIncidenciesUrge();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getTicketsClosedByConsulta(Long idconsulta) {
+        Consulta c = consultaDAO.getReferenceById(idconsulta);
+        List<Ticket> tickets = ticketDAO.findByConsulta(c);
+        tickets.removeIf(t -> t.getEstado().equals("activo_urgencia") || t.getEstado().equals("activo"));
+        return tickets;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getTicketsOpenByConsulta(Long idconsulta) {
+        Consulta c = consultaDAO.getReferenceById(idconsulta);
+        List<Ticket> tickets = ticketDAO.findByConsulta(c);
+        tickets.removeIf(t -> t.getEstado().equals("cerrado"));
+        return tickets;
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesOpened() {
+        return ticketDAO.findbyEstadoOpen();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesOpenedUrge() {
+        return ticketDAO.findbyEstadoOpenUrge();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getIncidenciesClosed() {
+        return ticketDAO.findbyEstadoClosed();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getTicketsByConsulta(Long idconsulta) {
+        Consulta c = consultaDAO.getReferenceById(idconsulta);
+        return ticketDAO.findByConsulta(c);
     }
 
 
