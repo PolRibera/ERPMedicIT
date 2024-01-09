@@ -94,6 +94,17 @@ public class DispositiuController {
         dispositiu = dispositiuService.getDeviceById(dispositiu.getId());
         model.addAttribute("consultes", dispositiu.getConsulta());
         model.addAttribute("dispositiu", dispositiu);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        model.addAttribute("username", username);
+        Rol rol = rolDAO.findByNom(usuariService.getUsuariByUsername(username).getRol().getNom());
+        model.addAttribute("Rol",rol);
         return "dispositivosForm";
     }
 

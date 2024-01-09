@@ -60,8 +60,21 @@
         cursor: pointer;
         text-decoration: none;
     }
+    #boton-cancelar2 {
+        background-color: #d9534f;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
 
     #boton-cancelar:hover {
+        background-color: #ff0000;
+        transition: background-color 0.5s ease;
+    }
+    #boton-cancelar2:hover {
         background-color: #ff0000;
         transition: background-color 0.5s ease;
     }
@@ -70,6 +83,32 @@
         margin-bottom: 12px;
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("consulta_id").addEventListener("pointermove", function() {
+            var consultaId = this.value;
+            var dispositivoSelect = document.getElementById("dispositivo_id");
+
+            // Limpiamos opciones anteriores, manteniendo la opción por defecto
+            dispositivoSelect.innerHTML = '<option value="-1">Seleccione un dispositivo</option>';
+            if (consultaId) {
+                fetch('/dispositivosPorConsulta?consultaId=' + consultaId)
+                    .then(response => response.json())
+                    .then(dispositivos => {
+                        dispositivoSelect.disabled = false;
+                        dispositivos.forEach(function(dispositivo) {
+                            var option = document.createElement("option");
+                            option.value = dispositivo.id;
+                            option.textContent = dispositivo.nom; // Utiliza 'nom' para mostrar el nombre del dispositivo
+                            dispositivoSelect.appendChild(option);
+                        });
+                    });
+            } else {
+                dispositivoSelect.disabled = true;
+            }
+        });
+    });
+</script>
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Ticket</title>
@@ -100,7 +139,8 @@
         <br>
 
         <button type="submit">Genera!</button>
-        <a id="boton-cancelar" th:href="@{/tickets?state=all}">Cancelar</a>
+        <a id="boton-cancelar" th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/tickets?state=all}">Cancelar</a>
+        <a id="boton-cancelar2" th:if="${Rol.getNom().equals('cliente')}" th:href="@{/mapa}">Cancelar</a>
     </form>
 </body>
 </html>

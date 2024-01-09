@@ -153,6 +153,7 @@
     <button type="submit">Enviar</button>
 </form>
 
-<a id="back-button" th:href="@{/tickets?state=all}">Volver al listado de tickets</a>
+<a id="back-button" th:if="${Rol.getNom().equals('admin') || Rol.getNom().equals('tecnico')}" th:href="@{/tickets?state=all}">Volver al listado de tickets</a>
+<a id="back-button" th:if="${Rol.getNom().equals('cliente')}" th:href="@{/mapa}">Volver al mapa</a>
 </body>
 </html>
