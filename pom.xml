@@ -86,6 +86,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>crud-docker</finalName>
+		<finalName>ProjecteHospitalPRA</finalName>
 	</build>
 </project>
